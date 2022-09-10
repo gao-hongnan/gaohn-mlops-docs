@@ -4,6 +4,9 @@ nav:
   - Home: index.md
   - About: about.md
   - Git: 
+
+    - Introduction: mlops_docs/git/introduction.md
+    
     - Install Git: mlops_docs/git/install_git.md
 
     - Getting Started:

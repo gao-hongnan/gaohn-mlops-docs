@@ -86,7 +86,3 @@ the [GitHub's tutorial](https://docs.github.com/en/github/getting-started-with-g
 !!! Tip
     Many people suggest one to first create a remote repository and then clone it to their local
     machine for development, where you need not run `git init` on the local directory.
-
-## git init
-
-sss

@@ -104,12 +104,13 @@ different OS. We will reproduce the steps on macOS.
 #### Syncing the Forked Repository with Upstream 
 
 Now I will use my other account to make a new commit [32f5bbd
-](https://github.com/ghnreigns/git-sample-workflow/commit/32f5bbd7ba31bb4d50e40c27fca946ebc32dbefe) on the repository's main branch (i.e the upstream) and now
+](https://github.com/ghnreigns/git-sample-workflow/commit/32f5bbd7ba31bb4d50e40c27fca946ebc32dbefe) 
+on the repository's main branch (i.e the upstream) and now
 my forked repository will be 1 commit behind.
 
 <figure markdown>
   ![Image title](../../../assets/git/main_1.PNG){ width="600" }
-  <figcaption>Image caption</figcaption>
+  <figcaption>Origin is 1 commit behind Upstream</figcaption>
 </figure>
 
 To keep my repository up to date, we will refer to [GitHub Docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-
@@ -222,7 +223,7 @@ We click it and the following interface will appear, that is for you to write a 
 
 <figure markdown>
   ![Image title](../../../assets/git/pull_request_1.PNG){ width="600" }
-  <figcaption>Image caption</figcaption>
+  <figcaption>Pull Request 1</figcaption>
 </figure>
 
 Once you created pull request, you can wait for the upstream author to decide and reply.
@@ -230,7 +231,7 @@ Since I am the owner of the other account, I went in and see the following:
 
 <figure markdown>
   ![Image title](../../../assets/git/pull_request_2.PNG){ width="600" }
-  <figcaption>Image caption</figcaption>
+  <figcaption>Pull Request 2</figcaption>
 </figure>
 
 and proceeded to approve the merge request.
