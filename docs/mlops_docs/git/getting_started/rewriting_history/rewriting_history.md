@@ -1,0 +1,1 @@
+Visit [Atlassian's rewriting history tutorial](https://www.atlassian.com/git/tutorials/rewriting-history) for more details.

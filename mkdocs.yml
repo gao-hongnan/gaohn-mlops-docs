@@ -1,0 +1,115 @@
+site_name: Hongnan Gao's MLOps Documentation
+site_url: https://reighns92.github.io/gaohn-mlops-docs
+nav:
+  - Home: index.md
+  - About: about.md
+  - Git: 
+    - Install Git: mlops_docs/git/install_git.md
+
+    - Getting Started:
+
+      - Setting Up Repository: 
+        - Overview: mlops_docs/git/getting_started/setting_up_repository/setting_up_repository.md
+        - git init: mlops_docs/git/getting_started/setting_up_repository/git_init.md
+        - git clone: mlops_docs/git/getting_started/setting_up_repository/git_clone.md
+        - git config: mlops_docs/git/getting_started/setting_up_repository/git_config.md
+
+      - Saving Changes:
+        - Overview: mlops_docs/git/getting_started/saving_changes/saving_changes.md
+        - git add: mlops_docs/git/getting_started/saving_changes/git_add.md
+        - git commit: mlops_docs/git/getting_started/saving_changes/git_commit.md
+        - git diff: mlops_docs/git/getting_started/saving_changes/git_diff.md
+        - git stash: mlops_docs/git/getting_started/saving_changes/git_stash.md
+      
+      - Inspecting a Repository:
+        - Overview: mlops_docs/git/getting_started/inspecting_repository/inspecting_repository.md
+        - git status: mlops_docs/git/getting_started/inspecting_repository/git_status.md
+        # - git tag: mlops_docs/git/getting_started/inspecting_repository/git_tag.md
+        # - git blame: mlops_docs/git/getting_started/inspecting_repository/git_blame.md
+
+      - Undoing Changes:
+        - Overview: mlops_docs/git/getting_started/undoing_changes/undoing_changes.md
+        # - git checkout: mlops_docs/git/getting_started/undoing_changes/git_checkout.md
+        # - git clean: mlops_docs/git/getting_started/undoing_changes/git_clean.md
+        # - git revert: mlops_docs/git/getting_started/undoing_changes/git_revert.md
+        # - git reset: mlops_docs/git/getting_started/undoing_changes/git_reset.md
+        # - git rm: mlops_docs/git/getting_started/undoing_changes/git_rm.md
+
+      - Rewriting History:
+        - Overview: mlops_docs/git/getting_started/rewriting_history/rewriting_history.md
+        # - git commit --amend: mlops_docs/git/getting_started/git_commit_amend.md
+        # - git rebase: mlops_docs/git/getting_started/git_rebase.md
+        # - git rebase -i: mlops_docs/git/getting_started/git_rebase_i.md
+        # - git reflog: mlops_docs/git/getting_started/git_reflog.md
+        
+    - Collaborating:
+
+      - Syncing:
+        - Overview: mlops_docs/git/collaborating/syncing/syncing.md
+        - git remote: mlops_docs/git/collaborating/syncing/git_remote.md
+        - git push: mlops_docs/git/collaborating/syncing/git_push.md
+        - git fetch: mlops_docs/git/collaborating/syncing/git_fetch.md
+        - git pull: mlops_docs/git/collaborating/syncing/git_pull.md
+
+      - Branching and Merging:
+        - Overview: mlops_docs/git/collaborating/branching_and_merging/branching_and_merging.md
+        - git branch: mlops_docs/git/collaborating/branching_and_merging/git_branch.md
+        # - git checkout: mlops_docs/git/collaborating/branching_and_merging/git_checkout.md
+        # - git merge: mlops_docs/git/collaborating/branching_and_merging/git_merge.md
+        # - Merge Conflicts: mlops_docs/git/collaborating/branching_and_merging/merge_conflicts.md
+        # - Merge Strategies: mlops_docs/git/collaborating/branching_and_merging/merge_strategies.md
+
+      - Contributing to Open Source Projects, A Generic Sample Workflow: mlops_docs/git/collaborating/contributing_to_open_source_projects.md
+      
+    #- Git Full: mlops_docs/git/git.md
+
+repo_url: https://github.com/reigHns92/gaohn-mlops-docs
+repo_name: MLops-docs
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://sg.linkedin.com/in/reighnss
+    - icon: fontawesome/brands/github
+      link: https://github.com/reigHns92
+      name: gaohn
+  generator: false # false if don't show made by materials
+
+copyright: Copyright &copy; 2021-2022 Gao Hongnan
+
+theme:
+  name: material
+  features:
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github-square
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - footnotes
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+extra_javascript:
+  - javascript/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+    - css/extra.css
+
+plugins:
+  - search
+  - markdown-exec # https://pypi.org/project/markdown-exec/
+  # - mknotebooks # python 3.9 not supported https://github.com/greenape/mknotebooks
+  # - pheasant
+  # - mkdocstrings
