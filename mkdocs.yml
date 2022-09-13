@@ -3,6 +3,11 @@ site_url: https://reighns92.github.io/gaohn-mlops-docs
 nav:
   - Home: index.md
   # - About: about.md
+  
+  - Developing:
+
+    - General Workflow: mlops_docs/developing/general_workflow.md
+
   - Git: 
 
     - Introduction: mlops_docs/git/introduction.md
