@@ -2,7 +2,7 @@ site_name: Hongnan Gao's MLOps Documentation
 site_url: https://reighns92.github.io/gaohn-mlops-docs
 nav:
   - Home: index.md
-  - About: about.md
+  # - About: about.md
   - Git: 
 
     - Introduction: mlops_docs/git/introduction.md
