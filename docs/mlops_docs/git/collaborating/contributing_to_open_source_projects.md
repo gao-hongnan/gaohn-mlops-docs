@@ -137,7 +137,7 @@ section on syncing a fork branch from the command line.
     ~/gaohn/git-sample-workflow $ git checkout main
     ```
 
-3. Before you merge, you can use `git log` from the [previous section](git.md#synchronize-origin-with-git-fetch)
+3. Before you merge, you can use `git log` from the [previous section](contributing_to_open_source_projects.md#synchronize-origin-with-git-fetch)
     to check what was committed on the upstream repository.
 
     ```bash title="checking what was committed on upstream" linenums="1"
