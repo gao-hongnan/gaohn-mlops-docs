@@ -6,17 +6,17 @@ Let us assume that we are residing in our root folder `~/gaohn` and
 we want to create a new project called **YOLOX**, we can do as follows:
 
 ```bash title="creating main directory" linenums="1"
-~/gaohn       $ mkdir YOLOX
-~/gaohn       $ cd YOLOX
-~/gaohn/YOLOX $ code .        # (1)
+~/gaohn                $ mkdir yolov1_pytorch
+~/gaohn                $ cd yolov1_pytorch
+~/gaohn/yolov1_pytorch $ code .               # (1)
 ```
             
 1.  Open the project directory in Visual Studio Code. To change appropriately if using different IDE.
 
-If you are cloning a repository to your local folder **YOLOX**, you can further do:
+If you are cloning a repository to your local folder **yolov1_pytorch**, you can further do:
 
 ```bash title="cloning repository" linenums="1"
-~/gaohn/YOLOX $ git clone https://github.com/Megvii-BaseDetection/YOLOX.git .
+~/gaohn/yolov1_pytorch $ git clone https://github.com/... .
 ```
 
 where `.` means cloning to the current directory.
