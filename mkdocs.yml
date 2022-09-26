@@ -71,7 +71,7 @@ nav:
       
     #- Git Full: mlops_docs/git/git.md
 
-repo_url: https://github.com/reigHns92/gaohn-mlops-docs
+repo_url: https://github.com/reighns92/gaohn-mlops-docs
 repo_name: MLops-docs
 
 extra:
@@ -79,7 +79,7 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://sg.linkedin.com/in/reighnss
     - icon: fontawesome/brands/github
-      link: https://github.com/reigHns92
+      link: https://github.com/reighns92
       name: gaohn
   generator: false # false if don't show made by materials
 
