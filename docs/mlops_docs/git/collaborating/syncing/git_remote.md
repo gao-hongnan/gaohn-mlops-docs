@@ -38,11 +38,11 @@ Therefore, our `<remote name>` is `origin` and the `<remote url>` is the HTTPS U
     
     2. Add the remote origin for the second account.
     ```bash
-    git remote add origin git remote add <remote name> <remote url>
+    git remote add <remote name> <remote url>
     git remote set-url <remote name> <https://[token]@github.com/[username]/[repository_name]>
     ```
     
-    1. Push the changes to the second account and a prompt opens for you to key in token access.
+    3. Push the changes to the second account and a prompt opens for you to key in token access.
 
 ## Useful Git Remote Commands
 
