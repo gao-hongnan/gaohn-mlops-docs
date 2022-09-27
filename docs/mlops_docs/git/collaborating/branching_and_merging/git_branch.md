@@ -50,14 +50,28 @@ This will list all the branches in your repository. The branch that you are curr
 
 ## Delete Branches
 
+### Delete Local Branch
+
 To delete a branch, you can run the following command:
 
-```bash title="git branch -d" linenums="1"
+```bash title="delete local branch" linenums="1"
 ~/gaohn/git_tutorial $ git branch -d <branch-name>
 ```
 
 and in our case our `<branch-name>` is `dummy` and running the above command will tell us
-`Deleted branch dummy (was f3d4f25).`
+`Deleted branch dummy (was f3d4f25).` You can replace `-d` with `-D` to force delete the branch 
+if there are unmerged changes.
+
+Note that you must not be on the branch you want to delete. 
+
+### Delete Remote Branch
+
+To delete a remote branch, you can run the following command:
+
+```bash title="delete remote branch" linenums="1"
+~/gaohn/git_tutorial $ git push <remote-name> --delete <branch-name>
+```
+
 
 ## Switching Branches
 
