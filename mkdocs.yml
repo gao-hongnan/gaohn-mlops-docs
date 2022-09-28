@@ -1,5 +1,5 @@
 site_name: Hongnan Gao's MLOps Documentation
-site_url: https://reighns92.github.io/gaohn-mlops-docs
+site_url: https://gao-hongnan.github.io/gaohn-mlops-docs
 nav:
   - Home: index.md
   # - About: about.md
@@ -71,7 +71,7 @@ nav:
       
     #- Git Full: mlops_docs/git/git.md
 
-repo_url: https://github.com/reighns92/gaohn-mlops-docs
+repo_url: https://github.com/gao-hongnan/gaohn-mlops-docs
 repo_name: MLops-docs
 
 extra:
@@ -79,7 +79,7 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://sg.linkedin.com/in/reighnss
     - icon: fontawesome/brands/github
-      link: https://github.com/reighns92
+      link: https://github.com/gao-hongnan
       name: gaohn
   generator: false # false if don't show made by materials
 

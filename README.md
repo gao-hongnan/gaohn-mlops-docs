@@ -11,8 +11,10 @@ This documentation is developed on [MkDocs](https://www.mkdocs.org/). If you are
 markdown syntax is also supported.
 
 ```bash
-$ git clone https://github.com/reigHns92/MLOps-docs.git
-$ cd MLOps-docs
-$ pip install -r requirements.txt
-$ mkdocs serve
+$ git clone https://github.com/reighns92/gaohn-mlops-docs.git
+$ cd gaohn-mlops-docs
+$ python -m venv <venv_name> && <venv_name>\Scripts\activate 
+(venv_name) $ python -m pip install --upgrade pip setuptools wheel
+(venv_name) $  pip install -r requirements.txt
+(venv_name) $  mkdocs serve
 ```
