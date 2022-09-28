@@ -1,6 +1,9 @@
 This git documentation is mostly based on [Atlassian's Git Tutorial](https://www.atlassian.com/git/tu
 torials/) and [Colt Steele's Learn Git in 15 Minutes](https://www.youtube.com/watch?v=USjZcfj8yxE).
 
+I have since changed my GitHub username from **reigHns92** to **gao-hongnan**, so do not be alarmed
+to see the former in the documentation.
+
 
 ## Dummy Repository
 

@@ -1,6 +1,18 @@
-# MLOps-docs
+<div align="center">
+<h1>MLOps Documentation</a></h1>
+by Hongnan Gao
+Sep, 2022
+<br>
+</div>
 
-This is the documentation various MLOps concepts.
+
+<h4 align="center">
+  <a href="https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/git/introduction/">Git</a>
+  <span> · </span>
+  <a href="https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/developing/general_workflow/">General Workflow</a>
+</h4>
+
+This is the documentation for various MLOps concepts.
 
 ## Contributing
 
@@ -11,8 +23,8 @@ This documentation is developed on [MkDocs](https://www.mkdocs.org/). If you are
 markdown syntax is also supported.
 
 ```bash
-$ git clone https://github.com/reighns92/gaohn-mlops-docs.git
-$ cd gaohn-mlops-docs
+$ git clone https://github.com/gao-hongnan/gaohn-mlops-docs.git gaohn_mlops_docs
+$ cd gaohn_mlops_docs
 $ python -m venv <venv_name> && <venv_name>\Scripts\activate 
 (venv_name) $ python -m pip install --upgrade pip setuptools wheel
 (venv_name) $  pip install -r requirements.txt
