@@ -3,23 +3,27 @@
 ### Set Up Main Directory (IDE)
 
 Let us assume that we are residing in our root folder `~/gaohn` and
-we want to create a new project called **YOLOX**, we can do as follows:
+we want to create a new project called **YOLO**, we can do as follows:
 
 ```bash title="creating main directory" linenums="1"
-~/gaohn                $ mkdir yolov1_pytorch
-~/gaohn                $ cd yolov1_pytorch
-~/gaohn/yolov1_pytorch $ code .               # (1)
+~/gaohn      $ mkdir YOLO && cd YOLO
+~/gaohn/YOLO $ code .                 # (1)
 ```
             
 1.  Open the project directory in Visual Studio Code. To change appropriately if using different IDE.
 
-If you are cloning a repository to your local folder **yolov1_pytorch**, you can further do:
+If you are cloning a repository to your local folder **YOLO**, you can also do:
 
 ```bash title="cloning repository" linenums="1"
-~/gaohn/yolov1_pytorch $ git clone https://github.com/... .
+~/gaohn/YOLO $ git clone https://github.com/gao-hongnan/gaohn-yolov1-pytorch.git .
 ```
 
 where `.` means cloning to the current directory.
+
+### Set Up Git
+
+The steps to setting up git can be found [here](../git/introduction.md).
+Be sure to have a read before proceeding.
 
 ### Set Up Virtual Environment
 
@@ -28,9 +32,9 @@ Follow the steps below to set up a virtual environment for your development.
 === "Windows"
 
     ```bash title="venv" linenums="1"
-    ~/gaohn/YOLOX        $ python -m venv <name of virtual env>                      # (1)
-    ~/gaohn/YOLOX        $ .\venv\Scripts\activate                                   # (2)
-    ~/gaohn/YOLOX (venv) $ python -m pip install --upgrade pip setuptools wheel      # (3)
+    ~/gaohn/YOLO        $ python -m venv <venv_name>                               # (1)
+    ~/gaohn/YOLO        $ <venv_name>\Scripts\activate                             # (2)
+    ~/gaohn/YOLO (venv) $ python -m pip install --upgrade pip setuptools wheel     # (3)
     ```
 
     1.  Create virtual environment named `venv` in the current directory.
@@ -40,29 +44,31 @@ Follow the steps below to set up a virtual environment for your development.
 === "macOS M1"
 
     ```bash title="venv" linenums="1"
-    ~/gaohn/YOLOX        $ pip3 install virtualenv 
-    ~/gaohn/YOLOX        $ virtualenv <name of virtual env>                                          
-    ~/gaohn/YOLOX        $ source .\venv\bin\activate
-    ~/gaohn/YOLOX (venv) $ python3 -m pip install --upgrade pip setuptools wheel
+    ~/gaohn/YOLO        $ pip3 install virtualenv 
+    ~/gaohn/YOLO        $ virtualenv venv_name>                                          
+    ~/gaohn/YOLO        $ source venv_name>\bin\activate
+    ~/gaohn/YOLO (venv) $ python3 -m pip install --upgrade pip setuptools wheel
     ```
 
 === "Linux"
 
     ```bash title="venv" linenums="1"
-    ~/gaohn/YOLOX        $ sudo apt install python3.8 python3.8-venv python3-venv 
-    ~/gaohn/YOLOX        $ python3 -m venv <name of virtual env>                                 
-    ~/gaohn/YOLOX        $ source .\venv\bin\activate                                 
-    ~/gaohn/YOLOX (venv) $ python3 -m pip install --upgrade pip setuptools wheel      
+    ~/gaohn/YOLO        $ sudo apt install python3.8 python3.8-venv python3-venv 
+    ~/gaohn/YOLO        $ python3 -m venv venv_name>                        
+    ~/gaohn/YOLO        $ source venv_name>\bin\activate                                 
+    ~/gaohn/YOLO (venv) $ python3 -m pip install --upgrade pip setuptools wheel      
     ```
 
 You should see the following directory structure:
 
 ```tree title="main directory tree" linenums="1"
-YOLOX/
+YOLO/
 └── venv/
 ```
 
 ### Requirements and Setup
+
+### Requirements
 
 !!! note
     For small projects, we can have `requirements.txt` and just run `pip install -r requirements.txt`.
@@ -78,34 +84,105 @@ YOLOX/
     **requirements** and **setup** section for more details.      
 
 ```bash title="creating requirements" linenums="1"
-~/gaohn/YOLOX (venv) $ touch requirements.txt setup.py                                  
-~/gaohn/YOLOX (venv) $ pip install -e .                           
+~/gaohn/YOLO (venv) $ touch requirements.txt                              
+~/gaohn/YOLO (venv) $ pip install -r requirements.txt                          
 ```
 
-Something worth taking note is when you download PyTorch Library, there is a dependency link since we are downloading cuda directly, you may execute as such:
+```bash title="insert into requirements.txt" linenums="1"
+~/gaohn/YOLO (venv) $ cat > requirements.txt
+torch==1.10.0+cu113
+torchaudio===0.10.0+cu113
+torchvision==0.11.1+cu113
+albumentations==1.1.0
+matplotlib==3.2.2
+pandas==1.3.1
+torchinfo==1.7.1
+tqdm==4.64.1
+wandb==0.12.6
+```   
+  
+!!! Tip
+    Something worth taking note is when you download PyTorch Library, 
+    there is a dependency link since we are downloading cuda directly, you may execute as such:
+  
+    ```bash
+    ~/gaohn/YOLO (venv) $ pip install -r -f https://download.pytorch.org/whl/torch_stable.html requirements.txt
+    ```
 
-```bash
-~/gaohn/YOLOX (venv) $ pip install -e . -f https://download.pytorch.org/whl/torch_stable.html
+### Setup
+
+To use `setup.py` file, we first create a `setup.py` file and add the following:
+
+```bash title="creating setup.py" linenums="1"
+~/gaohn/YOLO (venv) $ touch setup.py
 ```
 
-If you further specify packages for **development**, **testing** and **documentation** in `setup.py`,
-you can choose which version to install:
+```bash title="insert into setup.py" linenums="1"
+~/gaohn/YOLO (venv) $ cat > setup.py
+# Setup installation for the application
+
+from pathlib import Path
+
+from setuptools import setup
+
+BASE_DIR = Path(__file__).parent
+
+# Load packages from requirements.txt
+with open(Path(BASE_DIR, "requirements.txt")) as file:
+    required_packages = [ln.strip() for ln in file.readlines()]
+
+with open(Path(BASE_DIR, "dev_requirements.txt")) as file:
+    dev_packages = [ln.strip() for ln in file.readlines()]
+
+setup(
+    name="gaohn-yolov1",
+    version="0.1",
+    license="MIT",
+    description="YOLOv1 Implementation in PyTorch.",
+    author="Hongnan G",
+    author_email="reighns.sjr.sjh.gr.twt.hrj@gmail.com",
+    url="",
+    keywords=["machine-learning", "deep-learning", "object-detection"],
+    classifiers=[
+        "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Build Tools",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3",
+    ],
+    python_requires=">=3.8",
+    install_requires=[required_packages],
+    extras_require={"dev": dev_packages},
+    dependency_links=[],
+    entry_points={
+        "console_scripts": [
+            "gaohn_yolo= src.main:app",
+        ],
+    },
+)
+```
+
+In `line 11-12`, we are loading the required packages from `requirements.txt`. So instead
+of calling `pip install -r requirements.txt`, we can call the below command:
 
 ```bash title="installing packages" linenums="1"
-~/gaohn/YOLOX (venv) $ python -m pip install -e ".[dev]"                       # installs required + dev packages
-~/gaohn/YOLOX (venv) $ python -m pip install -e ".[test]"                      # installs required + test packages
-~/gaohn/YOLOX (venv) $ python -m pip install -e ".[docs_packages]"             # installs required documentation packages
+~/gaohn/YOLO (venv) $ pip install -e . -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
-!!! Danger "TODO"
-    To add in new examples here.
+However, if you are using the code repository for further developing, then packages such as
+linters, formatters and testing frameworks should be installed as well. In line `line 14-15`,
+we specify a variable `dev_packages` to load the packages from `dev_requirements.txt`.
 
+```bash title="creating dev_requirements.txt" linenums="1"
+~/gaohn/YOLO (venv) $ python -m pip install -e ".[dev]"     # installs required + dev packages
+```
       
 You should see the following directory structure:
 
 ```tree title="main directory tree" linenums="1"
-YOLOX/
+YOLO/
 ├── venv/
+├── dev_requirements.txt
 ├── requirements.txt
 └── setup.py
 ```
