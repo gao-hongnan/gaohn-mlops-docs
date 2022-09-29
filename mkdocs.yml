@@ -7,6 +7,7 @@ nav:
   - Developing:
 
     - General Workflow: mlops_docs/developing/general_workflow.md
+    - Styling: mlops_docs/developing/styling_formatter_and_linter.ipynb
 
   - Git: 
 
@@ -118,6 +119,8 @@ extra_css:
 plugins:
   - search
   - markdown-exec # https://pypi.org/project/markdown-exec/
+  - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
+      execute: false
   # - mknotebooks # python 3.9 not supported https://github.com/greenape/mknotebooks
   # - pheasant
   # - mkdocstrings

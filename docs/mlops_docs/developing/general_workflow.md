@@ -1,4 +1,7 @@
-## Gearing Up For Development
+## Packaging and Setup
+
+We will be on branch [**`setup_requirements`**](https://github.com/gao-hongnan/gaohn-yolov1-
+pytorch/tree/setup_requirements) for this section.
 
 ### Set Up Main Directory (IDE)
 
@@ -20,10 +23,43 @@ If you are cloning a repository to your local folder **YOLO**, you can also do:
 
 where `.` means cloning to the current directory.
 
+### README
+
+We can create a `README.md` file to describe the project. For example:
+
+```bash title="README.md" linenums="1"
+~/gaohn/YOLO $ touch README.md
+```
+
+Typically, `README.md` includes instructions on how to install the project, how to use it,
+and how to contribute to it.
+
 ### Set Up Git
 
+Git is a version control system that is used to track changes to files.
+It is integral to the development process of any software. Here we initiate our main directory with git.
 The steps to setting up git can be found [here](../git/introduction.md).
 Be sure to have a read before proceeding.
+
+A typical git workflow on an empty repository is as follows:
+
+```bash title="git" linenums="1"
+~/gaohn/YOLO $ touch .gitignore 
+~/gaohn/YOLO $ git init
+~/gaohn/YOLO $ git config --global user.name "Your Name"
+~/gaohn/YOLO $ git config --global user.email "your@email.com"                               # (1) 
+~/gaohn/YOLO $ git add .
+~/gaohn/YOLO $ git commit -a                                                                 # (2)
+~/gaohn/YOLO $ git remote add origin "your-repo-http"                                        # (3)
+~/gaohn/YOLO $ git remote set-url origin https://[token]@github.com/[username]/[repository]  # (4)
+~/gaohn/YOLO $ git push origin master -u                                                     # (5)
+```
+
+1.  important to set the email linked to the git account.
+2.  write commit message.
+3.  add remote origin.
+4.  set the remote origin.
+5.  push to remote origin.
 
 ### Set Up Virtual Environment
 
@@ -68,7 +104,7 @@ YOLO/
 
 ### Requirements and Setup
 
-### Requirements
+#### Requirements
 
 !!! note
     For small projects, we can have `requirements.txt` and just run `pip install -r requirements.txt`.
@@ -83,7 +119,7 @@ YOLO/
     Refer to [madewithml](https://madewithml.com/courses/mlops/packaging/)'s
     **requirements** and **setup** section for more details.      
 
-```bash title="creating requirements" linenums="1"
+```bash title="create requirements" linenums="1"
 ~/gaohn/YOLO (venv) $ touch requirements.txt                              
 ~/gaohn/YOLO (venv) $ pip install -r requirements.txt                          
 ```
@@ -109,11 +145,11 @@ wandb==0.12.6
     ~/gaohn/YOLO (venv) $ pip install -r -f https://download.pytorch.org/whl/torch_stable.html requirements.txt
     ```
 
-### Setup
+#### Setup
 
 To use `setup.py` file, we first create a `setup.py` file and add the following:
 
-```bash title="creating setup.py" linenums="1"
+```bash title="create setup.py" linenums="1"
 ~/gaohn/YOLO (venv) $ touch setup.py
 ```
 
@@ -176,6 +212,10 @@ we specify a variable `dev_packages` to load the packages from `dev_requirements
 ```bash title="creating dev_requirements.txt" linenums="1"
 ~/gaohn/YOLO (venv) $ python -m pip install -e ".[dev]"     # installs required + dev packages
 ```
+
+One main reason why we have a separate `dev_requirements.txt` is we can specify this set of 
+requirements when doing CI/CD. Later on we will use GitHub Actions to define a set of workflows
+in `.github/workflows` directory, where we will directly install the packages from `dev_requirements.txt`.
       
 You should see the following directory structure:
 
@@ -187,112 +227,12 @@ YOLO/
 └── setup.py
 ```
 
-## Setup Main Directory (IDE) (SEE HERE FOR YOLOV1)
 
-Let us create our main directory for the project:
-
-```bash title="creating main directory" linenums="1"
-$ mkdir pkd_exercise_counter
-$ cd pkd_exercise_counter
-$ code .                      # (1)
-```
-
-1.  Open the project directory in Visual Studio Code. To change appropriately if using different IDE.
-
-## Virtual Environment 
-
-Set up a virtual environment in your IDE.
-
-!!! note "Virtual Environment"
-    If you are using Linux or Mac, then you may need to install the virtual environment manager. For windows, python comes with a virtual environment manager `venv` installed.
-
-    ```bash title="install venv" linenums="1"
-    $ sudo apt install python3.8 python3.8-venv python3-venv  # For Ubuntu
-    $ pip3 install virtualenv                                 # For Mac
-    ```
-
-You can activate the virtual environment (assuming Windows) as follows:
-
-```bash title="virtual environment windows" linenums="1"
-$ python -m venv venv_pkd_exercise_counter                      # (1)
-$ .\venv_pkd_exercise_counter\Scripts\activate                  # (2)
-(venv) $ python -m pip install --upgrade pip setuptools wheel   # (3)
-```
-
-1.  Create virtual environment.
-2.  Activate virtual environment.
-3.  Upgrade pip.
-
-!!! note
-    Although the virtual environment name is `venv_pkd_exercise_counter`, it is too long and I will use `venv` for future references.
-
-
-You should see the following directory structure:
-
-```tree title="main directory tree" linenums="1"
-pkd_exercise_counter/
-└── venv_pkd_exercise_counter/
-```
-
-## Requirements and Setup
-
-!!! note
-    We note that `echo > "filename"` command is used to create a file in Windows. One can use `touch` in other OS such as macOS or even `code` if you are using Visual Studio Code.
-
-```bash title="creating requirements" linenums="1"
-(venv) $ echo > setup.py 
-(venv) $ echo > requirements.txt 
-(venv) $ pip install -e .
-```
-
-- `#!bash [Line 1-2]`: [`setup.py`](https://stackoverflow.com/questions/60145069/what-is-the-purpose-of-setup-py) file informs you about the module or package-dependencies you are about to install has been packaged and distributed with Distutils, which is the standard for distributing Python Modules. You can skip `setup.py` if you are just using `requirements.txt` to install dependencies.
-- `#!bash [Line 3]`: Installs packages from `requirements.txt`. One can also use commands such as `python -m pip install -e ".[dev]"` to install additional dev packages specified in `setup.py`.
-
-After which we quickly run a verification to see if PeekingDuck is installed correctly.
-
-```bash title="peekingduck verification" linenums="1"
-(venv) $ peekingduck --verify_install
-```
-
-!!! info
-    In my `setup.py`, I specified `python` to be $3.8$ and above. This has been tested on ubuntu latest and windows latest in GitHub Actions.
-
-You should see the following directory structure:
-
-```tree title="main directory tree" linenums="1"
-pkd_exercise_counter/
-├── venv_pkd_exercise_counter/
-├── requirements.txt
-└── setup.py
-```
-
-## Git
-
-Git is a version control system that is used to track changes to files. It is integral to the development process of any software. Here we initiate our main directory with git.
-
-!!! note
-    The commands below may differ depending on personal style and preferences. (i.e. ssh or https)
-
-```bash title="git" linenums="1"
-(venv) $ echo > README.md 
-(venv) $ echo > .gitignore 
-(venv) $ git init
-(venv) $ git config --global user.name "Your Name"
-(venv) $ git config --global user.email "your@email.com"                               # (1) 
-(venv) $ git add .
-(venv) $ git commit -a                                                                 # (2)
-(venv) $ git remote add origin "your-repo-http"                                        # (3)
-(venv) $ git remote set-url origin https://[token]@github.com/[username]/[repository]  # (4)
-(venv) $ git push origin master -u                                                     # (5)
-```
-
-1.  important to set the email linked to the git account.
-2.  write commit message.
-3.  add remote origin.
-4.  set the remote origin.
-5.  push to remote origin.
 
 ## Styling and Formatting
+
+We will be on branch [**styling**](https://github.com/gao-hongnan/gaohn-yolov1-pytorch/tree/styling)
+for this section.
 
 We will be using a very popular blend of style and formatting conventions that makes some very opinionated decisions on our behalf (with configurable options)[^styling_made_with_ml].
 
