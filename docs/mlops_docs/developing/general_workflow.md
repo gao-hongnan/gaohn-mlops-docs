@@ -142,7 +142,7 @@ wandb==0.12.6
     there is a dependency link since we are downloading cuda directly, you may execute as such:
   
     ```bash
-    ~/gaohn/YOLO (venv) $ pip install -r -f https://download.pytorch.org/whl/torch_stable.html requirements.txt
+    ~/gaohn/YOLO (venv) $ pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html 
     ```
 
 #### Setup
@@ -213,6 +213,20 @@ we specify a variable `dev_packages` to load the packages from `dev_requirements
 ~/gaohn/YOLO (venv) $ python -m pip install -e ".[dev]"     # installs required + dev packages
 ```
 
+```bash title="dev_requirements.txt" linenums="1"
+# linters, pytest, type checking
+bandit == 1.7.0
+black == 21.9b0
+click == 7.1.2
+coverage == 5.5
+mypy == 0.910
+pylint == 2.7.4
+pytest == 6.2.3
+types-PyYAML == 5.4.3
+types-requests == 2.25.0
+types-setuptools == 57.4.2
+types-six == 0.1.7
+```
 One main reason why we have a separate `dev_requirements.txt` is we can specify this set of 
 requirements when doing CI/CD. Later on we will use GitHub Actions to define a set of workflows
 in `.github/workflows` directory, where we will directly install the packages from `dev_requirements.txt`.
@@ -364,7 +378,8 @@ We will be using [Mkdocs](https://www.mkdocs.org/) to generate our markdown docu
 
 
 !!! tip
-    To link to a section or header, you can do this: [link to Styling and Formatting by [workflows.md#styling-and-formatting](workflows.md#styling-and-formatting).
+    To link to a section or header, you can do this: [link to Styling and Formatting by
+    [general_workflow.md#styling-and-formatting](general_workflow.md#styling-and-formatting).
 
 ### Mkdocstrings
 
