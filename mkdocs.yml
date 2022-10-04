@@ -70,7 +70,7 @@ nav:
 
       - Contributing to Open Source Projects, A Generic Sample Workflow: mlops_docs/git/collaborating/contributing_to_open_source_projects.md
       
-    #- Git Full: mlops_docs/git/git.md
+  - Testing: mlops_docs/testing/07_testing.ipynb
 
 repo_url: https://github.com/gao-hongnan/gaohn-mlops-docs
 repo_name: MLops-docs
