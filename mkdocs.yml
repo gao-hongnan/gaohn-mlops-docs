@@ -69,6 +69,10 @@ nav:
         # - Merge Strategies: mlops_docs/git/collaborating/branching_and_merging/merge_strategies.md
 
       - Contributing to Open Source Projects, A Generic Sample Workflow: mlops_docs/git/collaborating/contributing_to_open_source_projects.md
+
+    - Advanced Tips:
+
+      - Merging vs Rebasing: mlops_docs/git/advanced_tips/merging_vs_rebasing.md
       
   - Testing: mlops_docs/testing/07_testing.ipynb
 

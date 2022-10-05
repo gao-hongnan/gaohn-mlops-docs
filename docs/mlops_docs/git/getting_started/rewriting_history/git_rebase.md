@@ -1,0 +1,1 @@
+See https://christoph-rumpel.com/2015/05/clean-up-your-commits-for-a-pull-request/ for documentation.
