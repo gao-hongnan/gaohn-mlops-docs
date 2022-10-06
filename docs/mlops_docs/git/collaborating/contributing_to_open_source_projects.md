@@ -250,3 +250,90 @@ Consequently, you will need to repeat the following steps to sync your forked re
 ```
 
 even though the point is slightly moot since this step is exactly the same as the previous commit.
+
+### Git Rebase (My Workflow) vs Git Merge
+
+We discuss how we can use `git rebase` to clean up commits before merging into the upstream repository.
+This workflow can be extremely versatile, so I will only be discussing the workflow that I use.
+
+#### Git Rebase
+
+Let's say you are on your `origin/dev` branch and decides to create a new feature.
+You can create a new branch `feat-hello-world` and do your work on it.
+
+```bash title="creating new branch" linenums="1"
+~/gaohn/git-sample-workflow (git: dev) $ git checkout -b feat-hello-world
+```
+
+You then create a new script `hello_world.py` which prints "Hello World!" and commit it to your local repository.
+
+```bash title="creating new script" linenums="1"
+~/gaohn/git-sample-workflow $ touch hello_world.py   # add print("Hello World!")
+~/gaohn/git-sample-workflow $ git add hello_world.py
+~/gaohn/git-sample-workflow $ git commit -m "feat: add new feature hello_world that prints 'Hello World!'"
+
+[feat-hello-world 0ee86be] feat: add new feature hello_world that prints "Hello World!"
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello_world.py
+```
+
+You then continue developing and added a new function `print_message()` to the `hello_world` script
+such that the function can take in a string and print it to console.
+
+```bash title="adding new function" linenums="1"
+~/gaohn/git-sample-workflow $ git commit -m "feat: add new function to print any incoming string as message"
+
+[feat-hello-world ef731ee] feat: add new function to print any incoming string as message.
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+```
+
+After you are done with the feature, I packaged the script `hello_world` into a folder named `src`.
+
+```bash title="packaging script" linenums="1"
+~/gaohn/git-sample-workflow $ mkdir src
+~/gaohn/git-sample-workflow $ mv hello_world.py src/
+~/gaohn/git-sample-workflow $ git add src/
+~/gaohn/git-sample-workflow $ git commit -m "build: package hello_world.py into src folder for modularity."
+
+[feat-hello-world 99180da] build: package hello_world.py into src folder for modularity.
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename hello_world.py => src/hello_world.py (100%)
+```
+
+Now I am ready to merge my `feat-hello-world` branch into the `dev` branch of the upstream repository.
+Before that, I want to clean up my commits because commits `0ee86be` and `ef731ee` are quite similar
+in what they do, both adding new features to the `hello_world` script and can be merged into one commit.
+
+We can do this by using `git rebase -i` to interactively rebase my commits. But since we want to rebase
+on top of the `dev` branch of the upstream repository, we need to first fetch the upstream repository (if you have not done so already).
+Subsequently, we can rebase our `feat-hello-world` branch onto the `dev` branch of the upstream repository as follows.
+
+```bash title="rebase onto upstream/dev" linenums="1"
+~/gaohn/git-sample-workflow $ git fetch upstream # this ensures that we are up to date with the upstream repository
+~/gaohn/git-sample-workflow $ git rebase -i upstream/dev
+```
+
+This will open up a text editor with the following content, shown in the gif below.
+
+<figure markdown>
+  ![Image title](../../../assets/git/git_rebase.gif){ width="600" }
+  <figcaption>Git Rebase</figcaption>
+</figure>
+
+Note that we replaced `pick` of `ef731ee` with `fixup` to squash the commit into the previous commit.
+We did not use `squash` because we do not want to keep the commit message of `ef731ee`. Therefore,
+`fixup` will keep the commit message of `0ee86be` and discard the commit message of `ef731ee` while
+squashing the commit.
+
+Now we will see a message `Successfully rebased and updated refs/heads/feat-hello-world.` and
+we can force push our branch to the remote repository.
+
+```bash title="force push to remote" linenums="1"
+~/gaohn/git-sample-workflow $ git push -f origin feat-hello-world
+```
+
+We are now ready to create a [pull request](contributing_to_open_source_projects.md#creating-pull-request)
+to merge our `feat-hello-world` branch into the `dev` branch.
+
+!!! Note
+    We have successfully cleaned up our commits by using `git rebase -i` to squash two commits into one.

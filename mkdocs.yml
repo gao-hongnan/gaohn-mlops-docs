@@ -125,6 +125,7 @@ plugins:
   - markdown-exec # https://pypi.org/project/markdown-exec/
   - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
       execute: false
+      include_source: True
   # - mknotebooks # python 3.9 not supported https://github.com/greenape/mknotebooks
   # - pheasant
   # - mkdocstrings
