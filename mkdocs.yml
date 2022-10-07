@@ -92,6 +92,7 @@ copyright: Copyright &copy; 2021-2022 Gao Hongnan
 
 theme:
   name: material
+  logo: assets/logo.png
   features:
     - content.code.annotate
   icon:
@@ -126,6 +127,7 @@ plugins:
   - mkdocs-jupyter: # https://github.com/danielfrg/mkdocs-jupyter
       execute: false
       include_source: True
-  # - mknotebooks # python 3.9 not supported https://github.com/greenape/mknotebooks
+  # - mknotebooks: # python 3.9 not supported https://github.com/greenape/mknotebooks
+  #     execute: false
   # - pheasant
   # - mkdocstrings
