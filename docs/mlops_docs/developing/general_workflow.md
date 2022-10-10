@@ -241,8 +241,6 @@ YOLO/
 └── setup.py
 ```
 
-
-
 ## Styling and Formatting
 
 We will be on branch [**styling**](https://github.com/gao-hongnan/gaohn-yolov1-pytorch/tree/styling)
@@ -287,6 +285,64 @@ exclude = '''
 You can run `black --check` to check if your code is formatted correctly or `black .` to format your code.
 
 [^styling_made_with_ml]: This part is extracted from [madewithml](https://madewithml.com/courses/mlops/styling/).
+
+## Scripting
+
+This is on branch `scripting`.
+
+See `06.makefile.ipynb` for more details.
+
+```bash title="create bash scripts" linenums="1"
+~/gaohn/YOLO (venv) $ mkdir scripts
+~/gaohn/YOLO (venv) $ touch scripts/linter.sh
+```
+
+```bash title="linter.sh" linenums="1"
+~/gaohn/YOLO (venv) $ cat scripts/linter.sh
+
+#!/bin/sh
+
+MINLINTSCORE=10
+
+if ! (pylint --fail-under=$MINLINTSCORE --ignore-paths=venv_* main.py src); then
+    echo "PYLINT ERROR: score below required lint score"
+    exit 123
+else
+    echo "PYLINT SUCCESS!!"
+fi
+
+echo "CHECKCODE: CONGRATULATIONS, ALL TESTS SUCCESSFUL!!"
+```
+
+where the flag `--ignore-paths=venv_*` tells `pylint` to ignore the virtual environment folder 
+as we do not want to lint the packages installed in the virtual environment.
+
+We can also create a script for formatting:
+
+```bash title="formatter.sh" linenums="1"
+~/gaohn/YOLO (venv) $ touch scripts/formatter.sh
+~/gaohn/YOLO (venv) $ cat scripts/formatter.sh
+
+#!/bin/sh -eu
+
+fail="0"
+
+black --version
+
+if ! black --check --exclude="venv_yolo" .; then
+    fail="1"
+fi
+
+if [ "$fail" = "1" ]; then
+    echo "BLACK ERROR: at least one file is poorly formatted"
+    exit 123
+else
+    echo "BLACK SUCCESS!!"
+fi
+
+echo "CHECKCODE: CONGRATULATIONS, ALL TESTS SUCCESSFUL!!"
+```
+
 
 ## Mkdocs
 
