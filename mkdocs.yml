@@ -7,7 +7,12 @@ nav:
   - Developing:
 
     - General Workflow: mlops_docs/developing/general_workflow.md
-    - Styling: mlops_docs/developing/styling_formatter_and_linter.ipynb
+    - Packing and Setup: mlops_docs/developing/packaging_and_setup.md
+    - Styling: mlops_docs/developing/styling.ipynb
+    - Scripting: mlops_docs/developing/scripting.ipynb
+    - Pre-commit: mlops_docs/developing/pre-commit.ipynb
+    - Documentation: mlops_docs/developing/documentation.md
+  
 
   - Git: 
 

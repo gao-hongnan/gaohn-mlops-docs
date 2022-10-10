@@ -9,6 +9,12 @@
 - https://www.scribendi.com/academy/articles/what_to_capitalize_in_a_title.en.html
 - https://www.dexplo.org/jupyter_to_medium/#publishing-to-medium-with-a-python-script
 
+## Sphinx/Jupyter-Book
+
+- https://jupyterbook.org/intro.html
+
+See my github repos for configuration and styles for sphinx and jupyter-book.
+
 ## Mkdocs 
 
 1. Read up mkdocs's setup https://squidfunk.github.io/mkdocs-material/setup/ for customization.

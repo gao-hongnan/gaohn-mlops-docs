@@ -1,3 +1,7 @@
+## Git
+
+See my documentation [here](https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/git/introduction/).
+
 ## Packaging and Setup
 
 We will be on branch [**`setup_requirements`**](https://github.com/gao-hongnan/gaohn-yolov1-
@@ -343,8 +347,123 @@ fi
 echo "CHECKCODE: CONGRATULATIONS, ALL TESTS SUCCESSFUL!!"
 ```
 
+## Pre-commit
 
-## Mkdocs
+This is on branch `pre-commit`.
+
+```bash title="install pre-commit" linenums="1"
+~/gaohn/YOLO (venv) $ pip install pre-commit
+~/gaohn/YOLO (venv) $ pre-commit install
+
+pre-commit installed at .git\hooks\pre-commit
+```
+
+```bash title="pre-commit-config.yaml" linenums="1
+
+```bash title="create pre-commit-config.yaml" linenums="1"
+~/gaohn/YOLO (venv) $ touch .pre-commit-config.yaml
+```
+
+```yaml title=".pre-commit-config.yaml" linenums="1"
+~/gaohn/YOLO (venv) $ cat .pre-commit-config.yaml
+
+repos:
+- repo: local
+  hooks:
+    - id: linter
+      name: Run linter
+      entry: bash
+      args: ["./scripts/linter.sh"]
+      language: system
+      pass_filenames: false
+    - id: check_format
+      name: Run black code formatter
+      entry: bash 
+      args: ["./scripts/formatter.sh"]
+      language: system
+      pass_filenames: false
+```
+
+means we will run `linter.sh` and `formatter.sh` before every commit.
+
+## Documentation
+
+### Jupyter Book Setup
+
+```bash title="packages required for jupyter-book" linenums="1"
+jupyter-book==0.13.1
+sphinx-inline-tabs==2021.3.28b7
+sphinx-proof==0.1.3
+myst-nb==0.16.0 # remember to download manually
+```
+
+```bash title="create jupyter-book" linenums="1"
+~/gaohn/YOLO (venv) $ mkdir content
+```
+
+You populate the `content` folder with your notebooks and markdown files. 
+
+To build the book, run:
+
+```bash title="build jupyter-book" linenums="1"
+~/gaohn/YOLO (venv) $ jupyter-book build content
+```
+
+Then the book will be built in the `_build` folder.
+
+Lastly, to serve and deploy the book, run:
+
+```bash title="serve and deploy jupyter-book" linenums="1"
+~/gaohn/YOLO (venv) $ mkdir .github/workflows
+~/gaohn/YOLO (venv) $ touch .github/workflows/deploy.yml
+```
+
+```bash title="deploy.yml" linenums="1"
+~/gaohn/YOLO (venv) $ cat .github/workflows/deploy.yml
+
+name: deploy
+
+on:
+  # Trigger the workflow on push to main branch
+  push:
+    branches:
+      - main
+      - master
+
+# This job installs dependencies, build the book, and pushes it to `gh-pages`
+jobs:
+  build-and-deploy-book:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.8]
+    steps:
+    - uses: actions/checkout@v2
+
+    # Install dependencies
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    # Build the book
+    - name: Build the book
+      run: |
+        jupyter-book build content
+
+    # Deploy the book's HTML to gh-pages branch
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: content/_build/html
+```
+
+This will deploy the book to the `gh-pages` branch. Remember to enable GitHub Pages in the repository settings.
 
 ### Mkdocs Setup
 
