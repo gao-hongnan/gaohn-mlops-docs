@@ -19,17 +19,17 @@ This is the documentation for various MLOps concepts.
 ### Installation
 
 ```bash
-~/gaohn             $ git clone https://github.com/gao-hongnan/gaohn-mlops-docs.git gaohn_mlops_docs
-~/gaohn             $ cd gaohn_mlops_docs
-~/gaohn             $ python -m venv <venv_name> && <venv_name>\Scripts\activate 
-~/gaohn (venv_name) $ python -m pip install --upgrade pip setuptools wheel
-~/gaohn (venv_name) $ pip install -r requirements.txt
+~/gaohn        $ git clone https://github.com/gao-hongnan/gaohn-mlops-docs.git gaohn_mlops_docs
+~/gaohn        $ cd gaohn-mlops-docs
+~/gaohn        $ python -m venv <venv_name> && <venv_name>\Scripts\activate 
+~/gaohn (venv) $ python -m pip install --upgrade pip setuptools wheel
+~/gaohn (venv) $ pip install -r requirements.txt
 ```
 
 ### Usage
 
 ```bash
-~/gaohn (venv_name) $ mkdocs serve
+~/gaohn (venv) $ mkdocs serve
 ```
 
 ## Contributing
