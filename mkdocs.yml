@@ -13,6 +13,7 @@ nav:
     - Pre-commit: mlops_docs/developing/pre-commit.ipynb
     - Documentation: mlops_docs/developing/documentation.md
   
+  - Testing: mlops_docs/testing/testing.ipynb
 
   - Git: 
 
@@ -79,7 +80,7 @@ nav:
 
       - Merging vs Rebasing: mlops_docs/git/advanced_tips/merging_vs_rebasing.md
       
-  - Testing: mlops_docs/testing/07_testing.ipynb
+  
 
 repo_url: https://github.com/gao-hongnan/gaohn-mlops-docs
 repo_name: MLops-docs
