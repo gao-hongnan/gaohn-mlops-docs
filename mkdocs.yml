@@ -13,6 +13,10 @@ nav:
     - Pre-commit: mlops_docs/developing/pre-commit.ipynb
     - Documentation: mlops_docs/developing/documentation.md
   
+  - Software Design Pattern:
+    - Python: mlops_docs/design_patterns/python.ipynb
+    - Design Patterns: mlops_docs/design_patterns/design_patterns.ipynb
+    
   - Testing: mlops_docs/testing/testing.ipynb
 
   - Git: 
