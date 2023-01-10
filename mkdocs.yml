@@ -14,8 +14,8 @@ nav:
     - Documentation: mlops_docs/developing/documentation.md
   
   - Software Design Pattern:
-    - Python: mlops_docs/design_patterns/python.ipynb
-    - Design Patterns: mlops_docs/design_patterns/design_patterns.ipynb
+    - Python: software_principles/python.ipynb
+    - Design Patterns: software_principles/design_patterns.ipynb
     
   - Testing: mlops_docs/testing/testing.ipynb
 
