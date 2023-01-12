@@ -3,6 +3,8 @@ site/
 \#*\#
 venv_*/
 **/.ipynb_checkpoints/
+outputs/
+multirun/
 
 # Converted Markdown Files
 # docs/*/**/*.md

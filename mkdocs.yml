@@ -17,6 +17,9 @@ nav:
     - Python: software_principles/python.ipynb
     - Design Patterns: software_principles/design_patterns.ipynb
     
+  - Config Management:
+    - Config Management: mlops_docs/config/config_management.md
+    
   - Testing: mlops_docs/testing/testing.ipynb
 
   - Git: 
