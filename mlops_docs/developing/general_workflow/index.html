@@ -1,0 +1,2658 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/developing/general_workflow/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>General Workflow - Hongnan Gao's MLOps Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Hongnan Gao&#39;s MLOps Documentation" class="md-header__button md-logo" aria-label="Hongnan Gao's MLOps Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan Gao's MLOps Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              General Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gao-hongnan/gaohn-mlops-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MLops-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Hongnan Gao&#39;s MLOps Documentation" class="md-nav__button md-logo" aria-label="Hongnan Gao's MLOps Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Hongnan Gao's MLOps Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gao-hongnan/gaohn-mlops-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MLops-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Developing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Developing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          General Workflow
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        General Workflow
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    Git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-and-setup" class="md-nav__link">
+    Packaging and Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Packaging and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-main-directory-ide" class="md-nav__link">
+    Set Up Main Directory (IDE)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readme" class="md-nav__link">
+    README
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-git" class="md-nav__link">
+    Set Up Git
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-virtual-environment" class="md-nav__link">
+    Set Up Virtual Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-and-setup" class="md-nav__link">
+    Requirements and Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#styling-and-formatting" class="md-nav__link">
+    Styling and Formatting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting" class="md-nav__link">
+    Scripting
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-to-download-data" class="md-nav__link">
+    Script to download data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-commit" class="md-nav__link">
+    Pre-commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-book-setup" class="md-nav__link">
+    Jupyter Book Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-setup" class="md-nav__link">
+    Mkdocs Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings" class="md-nav__link">
+    Mkdocstrings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-github-actions" class="md-nav__link">
+    CI/CD (GitHub Actions)
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD (GitHub Actions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commit-checks" class="md-nav__link">
+    Commit Checks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-to-website" class="md-nav__link">
+    Deploy to Website
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#piecing-it-all-together" class="md-nav__link">
+    Piecing it All Together
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packaging_and_setup/" class="md-nav__link">
+        Packing and Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../styling/" class="md-nav__link">
+        Styling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scripting/" class="md-nav__link">
+        Scripting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pre-commit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/" class="md-nav__link">
+        Documentation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Software Design Pattern
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Design Pattern" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Software Design Pattern
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software_principles/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software_principles/design_patterns/" class="md-nav__link">
+        Design Patterns
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Config Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Config Management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Config Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/config_management/" class="md-nav__link">
+        Config Management
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/testing/" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Git" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/install_git/" class="md-nav__link">
+        Install Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_1" type="checkbox" id="__nav_6_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_1">
+          Setting Up Repository
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Setting Up Repository" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Setting Up Repository
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/setting_up_repository/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/git_init/" class="md-nav__link">
+        git init
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/git_clone/" class="md-nav__link">
+        git clone
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/git_config/" class="md-nav__link">
+        git config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Saving Changes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Saving Changes" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Saving Changes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/saving_changes/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_add/" class="md-nav__link">
+        git add
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_commit/" class="md-nav__link">
+        git commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_diff/" class="md-nav__link">
+        git diff
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_stash/" class="md-nav__link">
+        git stash
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          Inspecting a Repository
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Inspecting a Repository" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Inspecting a Repository
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/inspecting_repository/inspecting_repository/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/inspecting_repository/git_status/" class="md-nav__link">
+        git status
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          Undoing Changes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Undoing Changes" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Undoing Changes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/undoing_changes/undoing_changes/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_5" type="checkbox" id="__nav_6_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_5">
+          Rewriting History
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rewriting History" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Rewriting History
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/rewriting_history/rewriting_history/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Collaborating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Collaborating" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Collaborating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          Syncing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Syncing" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Syncing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/syncing/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_remote/" class="md-nav__link">
+        git remote
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_push/" class="md-nav__link">
+        git push
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_fetch/" class="md-nav__link">
+        git fetch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_pull/" class="md-nav__link">
+        git pull
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          Branching and Merging
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Branching and Merging" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Branching and Merging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/branching_and_merging/branching_and_merging/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/branching_and_merging/git_branch/" class="md-nav__link">
+        git branch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/contributing_to_open_source_projects/" class="md-nav__link">
+        Contributing to Open Source Projects, A Generic Sample Workflow
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Advanced Tips
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced Tips" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Tips
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/advanced_tips/merging_vs_rebasing/" class="md-nav__link">
+        Merging vs Rebasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git" class="md-nav__link">
+    Git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-and-setup" class="md-nav__link">
+    Packaging and Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Packaging and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-main-directory-ide" class="md-nav__link">
+    Set Up Main Directory (IDE)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#readme" class="md-nav__link">
+    README
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-git" class="md-nav__link">
+    Set Up Git
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-up-virtual-environment" class="md-nav__link">
+    Set Up Virtual Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requirements-and-setup" class="md-nav__link">
+    Requirements and Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements and Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    Setup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#styling-and-formatting" class="md-nav__link">
+    Styling and Formatting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scripting" class="md-nav__link">
+    Scripting
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#script-to-download-data" class="md-nav__link">
+    Script to download data
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pre-commit" class="md-nav__link">
+    Pre-commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-book-setup" class="md-nav__link">
+    Jupyter Book Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocs-setup" class="md-nav__link">
+    Mkdocs Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mkdocstrings" class="md-nav__link">
+    Mkdocstrings
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    Tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cicd-github-actions" class="md-nav__link">
+    CI/CD (GitHub Actions)
+  </a>
+  
+    <nav class="md-nav" aria-label="CI/CD (GitHub Actions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commit-checks" class="md-nav__link">
+    Commit Checks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-to-website" class="md-nav__link">
+    Deploy to Website
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#piecing-it-all-together" class="md-nav__link">
+    Piecing it All Together
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/gao-hongnan/gaohn-mlops-docs/edit/master/docs/mlops_docs/developing/general_workflow.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>General Workflow</h1>
+
+<h2 id="git">Git</h2>
+<p>See my documentation <a href="https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/git/introduction/">here</a>.</p>
+<h2 id="packaging-and-setup">Packaging and Setup</h2>
+<p>We will be on branch <a href="https://github.com/gao-hongnan/gaohn-yolov1-
+pytorch/tree/setup_requirements"><strong><code>setup_requirements</code></strong></a> for this section.</p>
+<h3 id="set-up-main-directory-ide">Set Up Main Directory (IDE)</h3>
+<p>Let us assume that we are residing in our root folder <code>~/gaohn</code> and
+we want to create a new project called <strong>YOLO</strong>, we can do as follows:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">creating main directory</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn<span class="w">      </span>$<span class="w"> </span>mkdir<span class="w"> </span>YOLO<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>YOLO
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>code<span class="w"> </span>.<span class="w">                 </span><span class="c1"># (1)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>Open the project directory in Visual Studio Code. To change appropriately if using different IDE.</li>
+</ol>
+<p>If you are cloning a repository to your local folder <strong>YOLO</strong>, you can also do:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">cloning repository</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/gao-hongnan/gaohn-yolov1-pytorch.git<span class="w"> </span>.
+</code></pre></div></td></tr></table></div>
+<p>where <code>.</code> means cloning to the current directory.</p>
+<h3 id="readme">README</h3>
+<p>We can create a <code>README.md</code> file to describe the project. For example:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">README.md</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>README.md
+</code></pre></div></td></tr></table></div>
+<p>Typically, <code>README.md</code> includes instructions on how to install the project, how to use it,
+and how to contribute to it.</p>
+<h3 id="set-up-git">Set Up Git</h3>
+<p>Git is a version control system that is used to track changes to files.
+It is integral to the development process of any software. Here we initiate our main directory with git.
+The steps to setting up git can be found <a href="../../git/introduction/">here</a>.
+Be sure to have a read before proceeding.</p>
+<p>A typical git workflow on an empty repository is as follows:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">git</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>.gitignore<span class="w"> </span>
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>init
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Your Name&quot;</span>
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;your@email.com&quot;</span><span class="w">                               </span><span class="c1"># (1) </span>
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-a<span class="w">                                                                 </span><span class="c1"># (2)</span>
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span><span class="s2">&quot;your-repo-http&quot;</span><span class="w">                                        </span><span class="c1"># (3)</span>
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>https://<span class="o">[</span>token<span class="o">]</span>@github.com/<span class="o">[</span>username<span class="o">]</span>/<span class="o">[</span>repository<span class="o">]</span><span class="w">  </span><span class="c1"># (4)</span>
+~/gaohn/YOLO<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master<span class="w"> </span>-u<span class="w">                                                     </span><span class="c1"># (5)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>important to set the email linked to the git account.</li>
+<li>write commit message.</li>
+<li>add remote origin.</li>
+<li>set the remote origin.</li>
+<li>push to remote origin.</li>
+</ol>
+<h3 id="set-up-virtual-environment">Set Up Virtual Environment</h3>
+<p>Follow the steps below to set up a virtual environment for your development.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Windows</label><label for="__tabbed_1_2">macOS M1</label><label for="__tabbed_1_3">Linux</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">venv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>&lt;venv_name&gt;<span class="w">                               </span><span class="c1"># (1)</span>
+~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span>&lt;venv_name&gt;<span class="se">\S</span>cripts<span class="se">\a</span>ctivate<span class="w">                             </span><span class="c1"># (2)</span>
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w">     </span><span class="c1"># (3)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>Create virtual environment named <code>venv</code> in the current directory.</li>
+<li>Activate virtual environment.</li>
+<li>Upgrade pip, setuptools and wheel.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">venv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>virtualenv<span class="w"> </span>
+~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span>virtualenv<span class="w"> </span>venv_name&gt;<span class="w">                                          </span>
+~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv_name&gt;<span class="se">\b</span>in<span class="se">\a</span>ctivate
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">venv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3.8<span class="w"> </span>python3.8-venv<span class="w"> </span>python3-venv<span class="w"> </span>
+~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv_name&gt;<span class="w">                        </span>
+~/gaohn/YOLO<span class="w">        </span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv_name&gt;<span class="se">\b</span>in<span class="se">\a</span>ctivate<span class="w">                                 </span>
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel<span class="w">      </span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>You should see the following directory structure:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main directory tree</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>📁<span class="w"> </span>YOLO/
+📄<span class="w"> </span>└──<span class="w"> </span>venv/
+</code></pre></div></td></tr></table></div>
+<h3 id="requirements-and-setup">Requirements and Setup</h3>
+<h4 id="requirements">Requirements</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For small projects, we can have <code>requirements.txt</code> and just run <code>pip install -r requirements.txt</code>.
+For larger projects, we can add a <code>setup.py</code> file.</p>
+<p>In short, <code>requirements.txt</code> specifies the dependencies of your project, and <a href="https://
+stackoverflow.com/questions/60145069/what-is-the-purpose-of-setup-py"><code>setup.py</code></a> file informs you about the 
+module or package-dependencies you are about to install has been packaged and distributed with
+Distutils, which is the standard for distributing Python Modules. You can skip <code>setup.py</code> if you
+are just using <code>requirements.txt</code> to install dependencies.</p>
+<p>Refer to <a href="https://madewithml.com/courses/mlops/packaging/">madewithml</a>'s
+<strong>requirements</strong> and <strong>setup</strong> section for more details.      </p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create requirements</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>requirements.txt<span class="w">                              </span>
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w">                          </span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">insert into requirements.txt</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>&gt;<span class="w"> </span>requirements.txt
+<span class="nv">torch</span><span class="o">==</span><span class="m">1</span>.10.0+cu113
+<span class="nv">torchaudio</span><span class="o">===</span><span class="m">0</span>.10.0+cu113
+<span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.11.1+cu113
+<span class="nv">albumentations</span><span class="o">==</span><span class="m">1</span>.1.0
+<span class="nv">matplotlib</span><span class="o">==</span><span class="m">3</span>.2.2
+<span class="nv">pandas</span><span class="o">==</span><span class="m">1</span>.3.1
+<span class="nv">torchinfo</span><span class="o">==</span><span class="m">1</span>.7.1
+<span class="nv">tqdm</span><span class="o">==</span><span class="m">4</span>.64.1
+<span class="nv">wandb</span><span class="o">==</span><span class="m">0</span>.12.6
+</code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Something worth taking note is when you download PyTorch Library, 
+there is a dependency link since we are downloading cuda directly, you may execute as such:</p>
+<div class="highlight"><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/torch_stable.html<span class="w"> </span>
+</code></pre></div>
+</div>
+<h4 id="setup">Setup</h4>
+<p>To use <code>setup.py</code> file, we first create a <code>setup.py</code> file and add the following:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create setup.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>setup.py
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">insert into setup.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>&gt;<span class="w"> </span>setup.py
+<span class="c1"># Setup installation for the application</span>
+
+from<span class="w"> </span>pathlib<span class="w"> </span>import<span class="w"> </span>Path
+
+from<span class="w"> </span>setuptools<span class="w"> </span>import<span class="w"> </span>setup
+
+<span class="nv">BASE_DIR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Path<span class="o">(</span>__file__<span class="o">)</span>.parent
+
+<span class="c1"># Load packages from requirements.txt</span>
+with<span class="w"> </span>open<span class="o">(</span>Path<span class="o">(</span>BASE_DIR,<span class="w"> </span><span class="s2">&quot;requirements.txt&quot;</span><span class="o">))</span><span class="w"> </span>as<span class="w"> </span>file:
+<span class="w">    </span><span class="nv">required_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>ln.strip<span class="o">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>ln<span class="w"> </span><span class="k">in</span><span class="w"> </span>file.readlines<span class="o">()]</span>
+
+with<span class="w"> </span>open<span class="o">(</span>Path<span class="o">(</span>BASE_DIR,<span class="w"> </span><span class="s2">&quot;dev_requirements.txt&quot;</span><span class="o">))</span><span class="w"> </span>as<span class="w"> </span>file:
+<span class="w">    </span><span class="nv">dev_packages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>ln.strip<span class="o">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>ln<span class="w"> </span><span class="k">in</span><span class="w"> </span>file.readlines<span class="o">()]</span>
+
+setup<span class="o">(</span>
+<span class="w">    </span><span class="nv">name</span><span class="o">=</span><span class="s2">&quot;gaohn-yolov1&quot;</span>,
+<span class="w">    </span><span class="nv">version</span><span class="o">=</span><span class="s2">&quot;0.1&quot;</span>,
+<span class="w">    </span><span class="nv">license</span><span class="o">=</span><span class="s2">&quot;MIT&quot;</span>,
+<span class="w">    </span><span class="nv">description</span><span class="o">=</span><span class="s2">&quot;YOLOv1 Implementation in PyTorch.&quot;</span>,
+<span class="w">    </span><span class="nv">author</span><span class="o">=</span><span class="s2">&quot;Hongnan G&quot;</span>,
+<span class="w">    </span><span class="nv">author_email</span><span class="o">=</span><span class="s2">&quot;reighns.sjr.sjh.gr.twt.hrj@gmail.com&quot;</span>,
+<span class="w">    </span><span class="nv">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span>,
+<span class="w">    </span><span class="nv">keywords</span><span class="o">=[</span><span class="s2">&quot;machine-learning&quot;</span>,<span class="w"> </span><span class="s2">&quot;deep-learning&quot;</span>,<span class="w"> </span><span class="s2">&quot;object-detection&quot;</span><span class="o">]</span>,
+<span class="w">    </span><span class="nv">classifiers</span><span class="o">=[</span>
+<span class="w">        </span><span class="s2">&quot;Development Status :: 3 - Alpha&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;Intended Audience :: Developers&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;Topic :: Software Development :: Build Tools&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;License :: OSI Approved :: MIT License&quot;</span>,
+<span class="w">        </span><span class="s2">&quot;Programming Language :: Python :: 3&quot;</span>,
+<span class="w">    </span><span class="o">]</span>,
+<span class="w">    </span><span class="nv">python_requires</span><span class="o">=</span><span class="s2">&quot;&gt;=3.8&quot;</span>,
+<span class="w">    </span><span class="nv">install_requires</span><span class="o">=[</span>required_packages<span class="o">]</span>,
+<span class="w">    </span><span class="nv">extras_require</span><span class="o">={</span><span class="s2">&quot;dev&quot;</span>:<span class="w"> </span>dev_packages<span class="o">}</span>,
+<span class="w">    </span><span class="nv">dependency_links</span><span class="o">=[]</span>,
+<span class="w">    </span><span class="nv">entry_points</span><span class="o">={</span>
+<span class="w">        </span><span class="s2">&quot;console_scripts&quot;</span>:<span class="w"> </span><span class="o">[</span>
+<span class="w">            </span><span class="s2">&quot;gaohn_yolo= src.main:app&quot;</span>,
+<span class="w">        </span><span class="o">]</span>,
+<span class="w">    </span><span class="o">}</span>,
+<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>In <code>line 11-12</code>, we are loading the required packages from <code>requirements.txt</code>. So instead
+of calling <code>pip install -r requirements.txt</code>, we can call the below command:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">installing packages</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="w"> </span>-f<span class="w"> </span>https://download.pytorch.org/whl/torch_stable.html
+</code></pre></div></td></tr></table></div>
+<p>However, if you are using the code repository for further developing, then packages such as
+linters, formatters and testing frameworks should be installed as well. In line <code>line 14-15</code>,
+we specify a variable <code>dev_packages</code> to load the packages from <code>dev_requirements.txt</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">creating dev_requirements.txt</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span><span class="w">     </span><span class="c1"># installs required + dev packages</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">dev_requirements.txt</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># linters, pytest, type checking</span>
+<span class="nv">bandit</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span>.7.0
+<span class="nv">black</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">21</span>.9b0
+<span class="nv">click</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">7</span>.1.2
+<span class="nv">coverage</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">5</span>.5
+<span class="nv">mypy</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span>.910
+<span class="nv">pylint</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span>.7.4
+<span class="nv">pytest</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">6</span>.2.3
+types-PyYAML<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">5</span>.4.3
+types-requests<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span>.25.0
+types-setuptools<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">57</span>.4.2
+types-six<span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span>.1.7
+</code></pre></div></td></tr></table></div>
+One main reason why we have a separate <code>dev_requirements.txt</code> is we can specify this set of 
+requirements when doing CI/CD. Later on we will use GitHub Actions to define a set of workflows
+in <code>.github/workflows</code> directory, where we will directly install the packages from <code>dev_requirements.txt</code>.</p>
+<p>You should see the following directory structure:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">main directory tree</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>📁<span class="w"> </span>YOLO/
+📄<span class="w"> </span>├──<span class="w"> </span>venv/
+📄<span class="w"> </span>├──<span class="w"> </span>dev_requirements.txt
+📄<span class="w"> </span>├──<span class="w"> </span>requirements.txt
+📄<span class="w"> </span>└──<span class="w"> </span>setup.py
+</code></pre></div></td></tr></table></div>
+<h2 id="styling-and-formatting">Styling and Formatting</h2>
+<p>We will be on branch <a href="https://github.com/gao-hongnan/gaohn-yolov1-pytorch/tree/styling"><strong>styling</strong></a>
+for this section.</p>
+<p>We will be using a very popular blend of style and formatting conventions that makes some very opinionated decisions on our behalf (with configurable options)<sup id="fnref:styling_made_with_ml"><a class="footnote-ref" href="#fn:styling_made_with_ml">1</a></sup>.</p>
+<ul>
+<li><a href="https://black.readthedocs.io/en/stable/"><code>black</code></a>: an in-place reformatter that (mostly) adheres to PEP8.</li>
+<li><a href="https://pycqa.github.io/isort/"><code>isort</code></a>: sorts and formats import statements inside Python scripts.</li>
+<li><a href="https://flake8.pycqa.org/en/latest/index.html"><code>flake8</code></a>: a code linter with stylistic conventions that adhere to PEP8.</li>
+</ul>
+<p>We also have <code>pyproject.toml</code> and <code>.flake8</code> to configure our formatter and linter.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create pyproject.toml and .flake8</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&gt;<span class="w"> </span>pyproject.toml
+<span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>&gt;<span class="w"> </span>.flake8
+</code></pre></div></td></tr></table></div>
+<p>For example, the configuration for <code>black</code> below tells us that our maximum line length should be <span class="arithmatex">\(79\)</span> characters. We also want to exclude certain file extensions and in particular the <strong>virtual environment</strong> folder we created earlier. </p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pyproject.toml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Black formatting</span>
+<span class="k">[tool.black]</span>
+<span class="n">line-length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">79</span>
+<span class="n">include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;\.pyi?$&#39;</span>
+<span class="n">exclude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;&#39;&#39;</span>
+<span class="s">/(</span>
+<span class="s">      \.eggs         # exclude a few common directories in the</span>
+<span class="s">    | \.git          # root of the project</span>
+<span class="s">    | \.hg</span>
+<span class="s">    | \.mypy_cache</span>
+<span class="s">    | \.tox</span>
+<span class="s">    | _build</span>
+<span class="s">    | buck-out</span>
+<span class="s">    | build</span>
+<span class="s">    | dist</span>
+<span class="s">    | venv_*</span>
+<span class="s">  )/</span>
+<span class="s">&#39;&#39;&#39;</span>
+</code></pre></div></td></tr></table></div>
+<p>You can run <code>black --check</code> to check if your code is formatted correctly or <code>black .</code> to format your code.</p>
+<h2 id="scripting">Scripting</h2>
+<p>This is on branch <code>scripting</code>.</p>
+<p>See <code>06.makefile.ipynb</code> for more details.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create bash scripts</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>scripts
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>scripts/linter.sh
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">linter.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>scripts/linter.sh
+
+<span class="c1">#!/bin/sh</span>
+
+<span class="nv">MINLINTSCORE</span><span class="o">=</span><span class="m">10</span>
+
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="o">(</span>pylint<span class="w"> </span>--fail-under<span class="o">=</span><span class="nv">$MINLINTSCORE</span><span class="w"> </span>--ignore-paths<span class="o">=</span>venv_*<span class="w"> </span>main.py<span class="w"> </span>src<span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PYLINT ERROR: score below required lint score&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">123</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;PYLINT SUCCESS!!&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CHECKCODE: CONGRATULATIONS, ALL TESTS SUCCESSFUL!!&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p>where the flag <code>--ignore-paths=venv_*</code> tells <code>pylint</code> to ignore the virtual environment folder 
+as we do not want to lint the packages installed in the virtual environment.</p>
+<p>We can also create a script for formatting:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">formatter.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>scripts/formatter.sh
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>scripts/formatter.sh
+
+<span class="c1">#!/bin/sh -eu</span>
+
+<span class="nv">fail</span><span class="o">=</span><span class="s2">&quot;0&quot;</span>
+
+black<span class="w"> </span>--version
+
+<span class="k">if</span><span class="w"> </span>!<span class="w"> </span>black<span class="w"> </span>--check<span class="w"> </span>--exclude<span class="o">=</span><span class="s2">&quot;venv_yolo&quot;</span><span class="w"> </span>.<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">fail</span><span class="o">=</span><span class="s2">&quot;1&quot;</span>
+<span class="k">fi</span>
+
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$fail</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BLACK ERROR: at least one file is poorly formatted&quot;</span>
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">123</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BLACK SUCCESS!!&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;CHECKCODE: CONGRATULATIONS, ALL TESTS SUCCESSFUL!!&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="script-to-download-data">Script to download data</h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># Download VOC128 dataset (first 128 images from VOC2007 trainval)</span>
+<span class="c1"># Example usage: bash data/scripts/get_voc128.sh</span>
+<span class="c1"># parent</span>
+<span class="c1"># ├── src</span>
+<span class="c1"># └── datasets</span>
+<span class="c1">#     └── voc128  ← downloads here</span>
+
+<span class="c1"># Download/unzip images and labels</span>
+<span class="nv">datasets_path</span><span class="o">=</span><span class="s1">&#39;./datasets&#39;</span><span class="w"> </span><span class="c1"># unzip directory</span>
+<span class="nv">dataset_name</span><span class="o">=</span><span class="s1">&#39;pascal_voc_128&#39;</span>
+<span class="nv">url</span><span class="o">=</span>https://storage.googleapis.com/reighns/datasets/pascal_voc_128.zip
+<span class="nv">zip_file</span><span class="o">=</span><span class="s1">&#39;pascal_voc_128.zip&#39;</span><span class="w"> </span><span class="c1"># zip file name</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;Downloading&#39;</span><span class="w"> </span><span class="nv">$url$zip_file</span><span class="w"> </span><span class="s1">&#39; ...&#39;</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$d</span>
+wget<span class="w"> </span>-P<span class="w"> </span><span class="nv">$datasets_path</span>/<span class="nv">$dataset_name</span><span class="w"> </span><span class="nv">$url</span>
+unzip<span class="w"> </span><span class="nv">$datasets_path</span>/<span class="nv">$dataset_name</span>/<span class="nv">$zip_file</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$datasets_path</span>/<span class="nv">$dataset_name</span>
+rm<span class="w"> </span><span class="nv">$datasets_path</span>/<span class="nv">$dataset_name</span>/<span class="nv">$zip_file</span>
+
+<span class="nb">wait</span><span class="w"> </span><span class="c1"># finish background tasks</span>
+</code></pre></div>
+<h2 id="pre-commit">Pre-commit</h2>
+<p>This is on branch <code>pre-commit</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">install pre-commit</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>pre-commit
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>pre-commit<span class="w"> </span>install
+
+pre-commit<span class="w"> </span>installed<span class="w"> </span>at<span class="w"> </span>.git<span class="se">\h</span>ooks<span class="se">\p</span>re-commit
+</code></pre></div></td></tr></table></div>
+<p>```bash title="pre-commit-config.yaml" linenums="1</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create pre-commit-config.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>.pre-commit-config.yaml
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">.pre-commit-config.yaml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">~/gaohn/YOLO (venv) $ cat .pre-commit-config.yaml</span>
+
+<span class="l l-Scalar l-Scalar-Plain">repos</span><span class="p p-Indicator">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="w">  </span><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">linter</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run linter</span>
+<span class="w">      </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./scripts/linter.sh&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">      </span><span class="nt">pass_filenames</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">check_format</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run black code formatter</span>
+<span class="w">      </span><span class="nt">entry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bash</span><span class="w"> </span>
+<span class="w">      </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;./scripts/formatter.sh&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system</span>
+<span class="w">      </span><span class="nt">pass_filenames</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div></td></tr></table></div>
+<p>means we will run <code>linter.sh</code> and <code>formatter.sh</code> before every commit.</p>
+<h2 id="documentation">Documentation</h2>
+<h3 id="jupyter-book-setup">Jupyter Book Setup</h3>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">packages required for jupyter-book</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>jupyter-book<span class="o">==</span><span class="m">0</span>.13.1
+sphinx-inline-tabs<span class="o">==</span><span class="m">2021</span>.3.28b7
+sphinx-proof<span class="o">==</span><span class="m">0</span>.1.3
+myst-nb<span class="o">==</span><span class="m">0</span>.16.0<span class="w"> </span><span class="c1"># remember to download manually</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">create jupyter-book</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>content
+</code></pre></div></td></tr></table></div>
+<p>You populate the <code>content</code> folder with your notebooks and markdown files. </p>
+<p>To build the book, run:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">build jupyter-book</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>jupyter-book<span class="w"> </span>build<span class="w"> </span>content
+</code></pre></div></td></tr></table></div>
+<p>Then the book will be built in the <code>_build</code> folder.</p>
+<p>Lastly, to serve and deploy the book, run:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">serve and deploy jupyter-book</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>.github/workflows
+~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>.github/workflows/deploy.yml
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">deploy.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>cat<span class="w"> </span>.github/workflows/deploy.yml
+
+name:<span class="w"> </span>deploy
+
+on:
+<span class="w">  </span><span class="c1"># Trigger the workflow on push to main branch</span>
+<span class="w">  </span>push:
+<span class="w">    </span>branches:
+<span class="w">      </span>-<span class="w"> </span>main
+<span class="w">      </span>-<span class="w"> </span>master
+
+<span class="c1"># This job installs dependencies, build the book, and pushes it to `gh-pages`</span>
+jobs:
+<span class="w">  </span>build-and-deploy-book:
+<span class="w">    </span>runs-on:<span class="w"> </span><span class="si">${</span><span class="p">{ matrix.os </span><span class="si">}</span><span class="o">}</span>
+<span class="w">    </span>strategy:
+<span class="w">      </span>matrix:
+<span class="w">        </span>os:<span class="w"> </span><span class="o">[</span>ubuntu-latest<span class="o">]</span>
+<span class="w">        </span>python-version:<span class="w"> </span><span class="o">[</span><span class="m">3</span>.8<span class="o">]</span>
+<span class="w">    </span>steps:
+<span class="w">    </span>-<span class="w"> </span>uses:<span class="w"> </span>actions/checkout@v2
+
+<span class="w">    </span><span class="c1"># Install dependencies</span>
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>Set<span class="w"> </span>up<span class="w"> </span>Python<span class="w"> </span><span class="si">${</span><span class="p">{ matrix.python-version </span><span class="si">}</span><span class="o">}</span>
+<span class="w">      </span>uses:<span class="w"> </span>actions/setup-python@v1
+<span class="w">      </span>with:
+<span class="w">        </span>python-version:<span class="w"> </span><span class="si">${</span><span class="p">{ matrix.python-version </span><span class="si">}</span><span class="o">}</span>
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>Install<span class="w"> </span>dependencies
+<span class="w">      </span>run:<span class="w"> </span><span class="p">|</span>
+<span class="w">        </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="w">    </span><span class="c1"># Build the book</span>
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>Build<span class="w"> </span>the<span class="w"> </span>book
+<span class="w">      </span>run:<span class="w"> </span><span class="p">|</span>
+<span class="w">        </span>jupyter-book<span class="w"> </span>build<span class="w"> </span>content
+
+<span class="w">    </span><span class="c1"># Deploy the book&#39;s HTML to gh-pages branch</span>
+<span class="w">    </span>-<span class="w"> </span>name:<span class="w"> </span>GitHub<span class="w"> </span>Pages<span class="w"> </span>action
+<span class="w">      </span>uses:<span class="w"> </span>peaceiris/actions-gh-pages@v3.6.1
+<span class="w">      </span>with:
+<span class="w">        </span>github_token:<span class="w"> </span><span class="si">${</span><span class="p">{ secrets.GITHUB_TOKEN </span><span class="si">}</span><span class="o">}</span>
+<span class="w">        </span>publish_dir:<span class="w"> </span>content/_build/html
+</code></pre></div></td></tr></table></div>
+<p>This will deploy the book to the <code>gh-pages</code> branch. Remember to enable GitHub Pages in the repository settings.</p>
+<h3 id="mkdocs-setup">Mkdocs Setup</h3>
+<p>We will be using <a href="https://www.mkdocs.org/">Mkdocs</a> to generate our markdown documentation into a static website.</p>
+<ol>
+<li>
+<p>The following requirements are necessary to run <code>mkdocs</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">requirements.txt</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdocs                            1.3.0
+mkdocs-material                   8.2.13
+mkdocs-material-extensions        1.0.3
+mkdocstrings                      0.18.1
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>Initialize default template by calling <code>mkdocs new .</code> where <code>.</code> refers to the current directory. The <code>.</code> can be replaced with a path to your directory as well. Subsequently, a folder <code>docs</code> alongside with <code>mkdocs.yml</code> file will be created.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs folder structure</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>📁<span class="w"> </span>pkd_exercise_counter/
+📄<span class="w"> </span>├──<span class="w"> </span>venv_pkd_exercise_counter/
+<span class="hll">📄<span class="w"> </span>├──<span class="w"> </span>docs/
+</span><span class="hll">📄<span class="w"> </span>│<span class="w">   </span>└──<span class="w"> </span>index.md
+</span><span class="hll">📄<span class="w"> </span>├──<span class="w"> </span>mkdocs.yml
+</span>📄<span class="w"> </span>├──<span class="w"> </span>requirements.txt
+📄<span class="w"> </span>└──<span class="w"> </span>setup.py
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>We can specify the following configurations in <code>mkdocs.yml</code>:</p>
+<details class="example" open="open">
+<summary>Show/Hide mkdocs.yml</summary>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span></pre></div></td><td class="code"><div><pre><span></span><code>site_name: Hongnan G. PeekingDuck Exercise Counter
+site_url: &quot;&quot;
+nav:
+  - Home: index.md
+  - PeekingDuck:
+    - Setup: workflows.md
+    - Push-up Counter: pushup.md
+theme:
+  name: material
+  features:
+    - content.code.annotate
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - footnotes
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascript/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+    - css/extra.css
+plugins:
+  - search 
+  - mkdocstrings # plugins for mkdocstrings
+</code></pre></div></td></tr></table></div>
+</details>
+<p>Some of the key features include:</p>
+<ul>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/">Code block Line Numbering</a>;</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/code-blocks/">Code block Annotations</a>;</li>
+<li><a href="https://squidfunk.github.io/mkdocs-material/reference/mathjax/">MathJax</a>.</li>
+</ul>
+<p>One missing feature is the ability to <strong>toggle</strong> code blocks. Two workarounds are provided:</p>
+<details>
+<summary>Toggle Using Admonition</summary>
+<div class="highlight"><span class="filename">Setting Up</span><pre><span></span><code>mkdir<span class="w"> </span>custom_hn_push_up_counter<span class="w"> </span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Toggle Using HTML</summary>
+<div class="highlight"><span class="filename">Setting Up</span><pre><span></span><code>mkdir<span class="w"> </span>custom_hn_push_up_counter<span class="w"> </span>
+</code></pre></div>
+</details></p>
+</li>
+<li>
+<p>We added some custom CSS and JavaScript files. In particular, we added <code>mathjax.js</code> for easier latex integration.</p>
+</li>
+<li>You can now call <code>mkdocs serve</code> to start the server at a local host to view your document.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To link to a section or header, you can do this: [link to Styling and Formatting by
+<a href="./#styling-and-formatting">general_workflow.md#styling-and-formatting</a>.</p>
+</div>
+<h3 id="mkdocstrings">Mkdocstrings</h3>
+<p>We also can create docstrings as API reference using <a href="https://mkdocstrings.github.io/usage/">Mkdocstrings</a>:</p>
+<ul>
+<li>Install mkdocstrings: <code>pip install mkdocstrings</code></li>
+<li>Place plugings to <code>mkdocs.yml</code>:
+    <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>plugins:
+  - search
+  - mkdocstrings
+</code></pre></div></td></tr></table></div></li>
+<li>
+<p>In <code>mkdocs.yml</code>'s navigation tree: 
+    <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">mkdocs.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>- API Documentation: 
+  - Exercise Counter: api/exercise_counter_api.md
+</code></pre></div></td></tr></table></div>
+    For example you have a python file called <code>exercise_counter.py</code> and want to render it, create a file named <code>api/exercise_counter_api.md</code> and in this markdown file:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">api/exercise_counter_api.md</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>::: custom_hn_exercise_counter.src.custom_nodes.dabble.exercise_counter # package path.
+</code></pre></div></td></tr></table></div>
+</li>
+</ul>
+<h2 id="tests">Tests</h2>
+<p>Set up <code>pytest</code> for testing codes.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Install pytest</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">pytest</span><span class="o">==</span><span class="m">6</span>.0.2
+pytest-cov<span class="o">==</span><span class="m">2</span>.10.1
+</code></pre></div></td></tr></table></div>
+<p>In general, <strong>Pytest</strong> expects our testing codes to be grouped under a folder called <code>tests</code>. We can configure in our <code>pyproject.toml</code> file to override this if we wish to ask <code>pytest</code> to check from a different directory. After specifying the folder holding the test codes, <code>pytest</code> will then look for python scripts starting with <code>tests_*.py</code>; we can also change the extensions accordingly if you want <code>pytest</code> to look for other kinds of files (extensions)<sup id="fnref:testing_made_with_ml"><a class="footnote-ref" href="#fn:testing_made_with_ml">2</a></sup>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pyproject.toml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Pytest</span>
+<span class="o">[</span>tool.pytest.ini_options<span class="o">]</span>
+<span class="nv">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;tests&quot;</span><span class="o">]</span>
+<span class="nv">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;test_*.py&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="cicd-github-actions">CI/CD (GitHub Actions)</h2>
+<p>The following content is with reference to:</p>
+<ul>
+<li><a href="https://www.ravirajag.dev/blog/mlops-github-actions">MLOps Basics [Week 6]: CI/CD - GitHub Actions</a></li>
+<li><a href="https://madewithml.com/courses/mlops/cicd/">CI/CD for Machine Learning</a></li>
+</ul>
+<p>We will be using <a href="https://github.com/features/actions">GitHub Actions</a> to setup our mini CI/CD.</p>
+<h3 id="commit-checks">Commit Checks</h3>
+<p>Commit checks is to ensure the following:</p>
+<ul>
+<li>The requirements can be installed on various OS and python versions.</li>
+<li>Ensure code quality and adherence to PEP8 (or other coding standards).</li>
+<li>Ensure tests are passed.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">lint_test.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Commit Checks</span><span class="w">                                                                                             </span><span class="c1"># (1)</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span><span class="w">                                                                                        </span><span class="c1"># (2)</span>
+
+<span class="nt">jobs</span><span class="p">:</span><span class="w">                                                                                                           </span><span class="c1"># (3)</span>
+<span class="w">  </span><span class="nt">check_code</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (4)</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.os }}</span><span class="w">                                                                                   </span><span class="c1"># (5)</span>
+<span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (6)</span>
+<span class="w">      </span><span class="nt">fail-fast</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                                                                                          </span><span class="c1"># (7)</span>
+<span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (8)</span>
+<span class="w">        </span><span class="nt">os</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">ubuntu-latest</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">windows-latest</span><span class="p p-Indicator">]</span><span class="w">                                                                     </span><span class="c1"># (9)</span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">3.8</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3.9</span><span class="p p-Indicator">]</span><span class="w">                                                                              </span><span class="c1"># (10)</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">                                                                                                      </span><span class="c1"># (11)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span><span class="w">                                                                                     </span><span class="c1"># (12)</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span><span class="w">                                                                               </span><span class="c1"># (13)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Python</span><span class="w">                                                                                      </span><span class="c1"># (14)</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span><span class="w">                                                                           </span><span class="c1"># (15)</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">                                                                                                   </span><span class="c1"># (16)</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ matrix.python-version }}</span><span class="w">                                                          </span><span class="c1"># (17)</span>
+<span class="w">          </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pip&quot;</span><span class="w">                                                                                          </span><span class="c1"># (18)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span><span class="w">                                                                              </span><span class="c1"># (19)</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w">                                                                                                  </span><span class="c1"># (20)</span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip setuptools wheel</span>
+<span class="w">          </span><span class="no">pip install -e . </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Black Formatter</span><span class="w">                                                                               </span><span class="c1"># (21)</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">black --check .</span><span class="w">                                                                                    </span><span class="c1"># (22)</span>
+<span class="w">      </span><span class="c1"># - name: Run flake8 Linter</span>
+<span class="w">      </span><span class="c1">#   run: flake8 . # look at my pyproject.toml file and see if there is a flake8 section, if so, run flake8 on the files in the flake8 section</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run Pytest</span><span class="w">                                                                                        </span><span class="c1"># (23)</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python -m coverage run --source=custom_hn_exercise_counter -m pytest &amp;&amp; python -m coverage report</span><span class="w">  </span><span class="c1"># (24)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>This is the name that will show up under the <strong>Actions</strong> tab in GitHub. Typically, we should name it appropriately like how we indicate the subject of an email.</li>
+<li>The list here indicates the <a href="https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request">workflow will be triggered</a> whenever someone directly pushes or submits a PR to the main branch.</li>
+<li>Once an event is triggered, a set of <strong>jobs</strong> will run on a <a href="https://github.com/actions/runner">runner</a>. In our example, we will run a job called <code>check_code</code> on a runner to check for formatting and linting errors as well as run the <code>pytest</code> tests.</li>
+<li>This is the name of the job that will run on the runner.</li>
+<li>We specify which OS system we want the code to be run on. We can simply say <code>ubuntu-latest</code> or <code>windows-latest</code> if we just want the code to be tested on a single OS. However, here we want to check if it works on both Ubuntu and Windows, and hence we define <code>${{ matrix.os }}</code> where <code>matrix.os</code> is <code>[ubuntu-latest, windows-latest]</code>. A cartesian product is created for us and the job will run on both OSs.</li>
+<li>Strategy is a way to control how the jobs are run. In our example, we want the job to run as fast as possible, so we set <code>strategy.fail-fast</code> to <code>false</code>.</li>
+<li>If one job fails, then the whole workflow will fail, this is not ideal if we want to test multiple jobs, we can set <code>fail-fast</code> to <code>false</code> to allow the workflow to continue running on the remaining jobs.</li>
+<li>Matrix is a way to control how the jobs are run. In our example, we want to run the job on both Python 3.8 and 3.9, so we set <code>matrix.python-version</code> to <code>[3.8, 3.9]</code>.</li>
+<li>This list consists of the OS that the job will run on in cartesian product.</li>
+<li>This is the python version that the job will run on in cartesian product. We can simply say <code>3.8</code> or <code>3.9</code> if we just want the code to be tested on a single python version. However, here we want to check if it works on both python 3.8 and python 3.9, and hence we define <code>${{ matrix.python-version }}</code> where <code>matrix.python-version</code> is <code>[3.8, 3.9]</code>. A cartesian product is created for us and the job will run on both python versions.</li>
+<li>This is a list of dictionaries that defines the steps that will be run.</li>
+<li>Name is the name of the step that will be run.</li>
+<li>It is important to specify <code>@v2</code> as if unspecified, then the workflow will use the latest version from actions/checkout template, potentially causing libraries to break. The idea here is like your <code>requirements.txt</code> idea, if different versions then will break.</li>
+<li>Setup Python is a step that will be run before the job.</li>
+<li>Same as above, we specify <code>@v2</code> as if unspecified, then the workflow will use the latest version from actions/setup-python template, potentially causing libraries to break.</li>
+<li>With is a way to pass parameters to the step.</li>
+<li>This is the python version that the job will run on in cartesian product and if run 1 python version then can define as just say 3.7</li>
+<li>Cache is a way to control how the libraries are installed.</li>
+<li>Install dependencies is a step that will be run before the job.</li>
+<li><code>|</code> is multi-line string that runs the below code, which sets up the libraries from <code>setup.py</code> file.</li>
+<li>Run Black Formatter is a step that will be run before the job.</li>
+<li>Runs <code>black</code> with configurations from <code>pyproject.toml</code> file.</li>
+<li>Run Pytest is a step that will be run before the job.</li>
+<li>Runs pytest, note that I specified <code>python -m</code> to resolve PATH issues.</li>
+</ol>
+<h3 id="deploy-to-website">Deploy to Website</h3>
+<p>The other workflow for this project is to deploy the website built from Mkdocsto gh-pages branch.</p>
+<details class="example">
+<summary>Show/Hide content for deploy_website.yml</summary>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">deploy_website.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Website to GitHub Pages</span>
+
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">master</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w"> </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;docs/**&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;mkdocs.yml&quot;</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;.github/workflows/deploy_website.yml&quot;</span>
+
+<span class="nt">permissions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write-all</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Website</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set Up Python</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.8</span>
+<span class="w">          </span><span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x64</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"> </span><span class="c1"># this symbol is called a multiline string</span>
+<span class="w">          </span><span class="no">python -m pip install --upgrade pip setuptools wheel</span>
+<span class="w">          </span><span class="no">pip install -e . </span>
+
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Website</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">mkdocs build</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Push Built Website to gh-pages Branch</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">git config --global user.name &#39;Hongnan G.&#39;</span>
+<span class="w">          </span><span class="no">git config --global user.email &#39;reighns92@users.noreply.github.com&#39;</span>
+<span class="w">          </span><span class="no">ghp-import \</span>
+<span class="w">          </span><span class="no">--no-jekyll \</span>
+<span class="w">          </span><span class="no">--force \</span>
+<span class="w">          </span><span class="no">--no-history \</span>
+<span class="w">          </span><span class="no">--push \</span>
+<span class="w">          </span><span class="no">--message &quot;Deploying ${{ github.sha }}&quot; \</span>
+<span class="w">          </span><span class="no">site</span>
+</code></pre></div></td></tr></table></div>
+</details>
+<h2 id="piecing-it-all-together">Piecing it All Together</h2>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">download data</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/YOLO<span class="w"> </span><span class="o">(</span>venv<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>bash<span class="w"> </span>scripts/download_voc128.sh
+</code></pre></div></td></tr></table></div>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:styling_made_with_ml">
+<p>This part is extracted from <a href="https://madewithml.com/courses/mlops/styling/">madewithml</a>.&#160;<a class="footnote-backref" href="#fnref:styling_made_with_ml" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:testing_made_with_ml">
+<p>This part is extracted from <a href="https://madewithml.com/courses/mlops/testing/#pytest">madewithml</a>.&#160;<a class="footnote-backref" href="#fnref:testing_made_with_ml" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../packaging_and_setup/" class="md-footer__link md-footer__link--next" aria-label="Next: Packing and Setup" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Packing and Setup
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021-2022 Gao Hongnan
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://sg.linkedin.com/in/reighnss" target="_blank" rel="noopener" title="sg.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/gao-hongnan" target="_blank" rel="noopener" title="gaohn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

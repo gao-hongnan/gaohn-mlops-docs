@@ -1,0 +1,3422 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/testing/testing/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Testing - Hongnan Gao's MLOps Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#intuition" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Hongnan Gao&#39;s MLOps Documentation" class="md-header__button md-logo" aria-label="Hongnan Gao's MLOps Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan Gao's MLOps Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Testing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gao-hongnan/gaohn-mlops-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MLops-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Hongnan Gao&#39;s MLOps Documentation" class="md-nav__button md-logo" aria-label="Hongnan Gao's MLOps Documentation" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Hongnan Gao's MLOps Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gao-hongnan/gaohn-mlops-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MLops-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Developing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Developing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developing/general_workflow/" class="md-nav__link">
+        General Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developing/packaging_and_setup/" class="md-nav__link">
+        Packing and Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developing/styling/" class="md-nav__link">
+        Styling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developing/scripting/" class="md-nav__link">
+        Scripting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developing/pre-commit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developing/documentation/" class="md-nav__link">
+        Documentation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Software Design Pattern
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Design Pattern" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Software Design Pattern
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software_principles/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../software_principles/design_patterns/" class="md-nav__link">
+        Design Patterns
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Config Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Config Management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Config Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/config_management/" class="md-nav__link">
+        Config Management
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Testing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Testing
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-tests" class="md-nav__link">
+    Types of tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-should-we-test" class="md-nav__link">
+    How should we test?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-should-we-be-testing-for" class="md-nav__link">
+    What should we be testing for?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    Best practices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-driven-development-or-otherwise" class="md-nav__link">
+    Test-driven development or Otherwise?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest" class="md-nav__link">
+    Pytest
+  </a>
+  
+    <nav class="md-nav" aria-label="Pytest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assertions" class="md-nav__link">
+    Assertions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    Interfaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize" class="md-nav__link">
+    Parametrize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixtures" class="md-nav__link">
+    Fixtures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-test" class="md-nav__link">
+    Unit Test
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mock" class="md-nav__link">
+    Mock
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-walkthrough" class="md-nav__link">
+    Example Walkthrough
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-setup" class="md-nav__link">
+    Problem Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-0-setting-up-foldersscripts" class="md-nav__link">
+    Step 0. Setting up Folders/Scripts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-writing-our-functions" class="md-nav__link">
+    Step 1. Writing our functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-writing-our-tests" class="md-nav__link">
+    Step 2. Writing our tests
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2. Writing our tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-global-variables" class="md-nav__link">
+    Defining Global Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize-input-types" class="md-nav__link">
+    Parametrize Input Types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize-consistent-dimensions" class="md-nav__link">
+    Parametrize Consistent Dimensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-fixtures-to-manage-state-and-dependencies" class="md-nav__link">
+    Creating Fixtures to Manage State and Dependencies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-refactoring-our-tests" class="md-nav__link">
+    Step 3. Refactoring our tests
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3. Refactoring our tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-parametrize-for-different-transforms" class="md-nav__link">
+    Using parametrize for different transforms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-citations" class="md-nav__link">
+    References &amp; Citations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Git" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/install_git/" class="md-nav__link">
+        Install Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_1" type="checkbox" id="__nav_6_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_1">
+          Setting Up Repository
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Setting Up Repository" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Setting Up Repository
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/setting_up_repository/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/git_init/" class="md-nav__link">
+        git init
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/git_clone/" class="md-nav__link">
+        git clone
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/setting_up_repository/git_config/" class="md-nav__link">
+        git config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Saving Changes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Saving Changes" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Saving Changes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/saving_changes/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_add/" class="md-nav__link">
+        git add
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_commit/" class="md-nav__link">
+        git commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_diff/" class="md-nav__link">
+        git diff
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/saving_changes/git_stash/" class="md-nav__link">
+        git stash
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          Inspecting a Repository
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Inspecting a Repository" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Inspecting a Repository
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/inspecting_repository/inspecting_repository/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/inspecting_repository/git_status/" class="md-nav__link">
+        git status
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          Undoing Changes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Undoing Changes" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Undoing Changes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/undoing_changes/undoing_changes/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_5" type="checkbox" id="__nav_6_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_5">
+          Rewriting History
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rewriting History" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Rewriting History
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/getting_started/rewriting_history/rewriting_history/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Collaborating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Collaborating" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Collaborating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          Syncing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Syncing" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Syncing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/syncing/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_remote/" class="md-nav__link">
+        git remote
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_push/" class="md-nav__link">
+        git push
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_fetch/" class="md-nav__link">
+        git fetch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/syncing/git_pull/" class="md-nav__link">
+        git pull
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          Branching and Merging
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Branching and Merging" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Branching and Merging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/branching_and_merging/branching_and_merging/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/branching_and_merging/git_branch/" class="md-nav__link">
+        git branch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/collaborating/contributing_to_open_source_projects/" class="md-nav__link">
+        Contributing to Open Source Projects, A Generic Sample Workflow
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Advanced Tips
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced Tips" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Tips
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/advanced_tips/merging_vs_rebasing/" class="md-nav__link">
+        Merging vs Rebasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intuition" class="md-nav__link">
+    Intuition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-tests" class="md-nav__link">
+    Types of tests
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-should-we-test" class="md-nav__link">
+    How should we test?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-should-we-be-testing-for" class="md-nav__link">
+    What should we be testing for?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    Best practices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-driven-development-or-otherwise" class="md-nav__link">
+    Test-driven development or Otherwise?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest" class="md-nav__link">
+    Pytest
+  </a>
+  
+    <nav class="md-nav" aria-label="Pytest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    Configuration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assertions" class="md-nav__link">
+    Assertions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interfaces" class="md-nav__link">
+    Interfaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize" class="md-nav__link">
+    Parametrize
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixtures" class="md-nav__link">
+    Fixtures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unit-test" class="md-nav__link">
+    Unit Test
+  </a>
+  
+    <nav class="md-nav" aria-label="Unit Test">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mock" class="md-nav__link">
+    Mock
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-walkthrough" class="md-nav__link">
+    Example Walkthrough
+  </a>
+  
+    <nav class="md-nav" aria-label="Example Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-setup" class="md-nav__link">
+    Problem Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-0-setting-up-foldersscripts" class="md-nav__link">
+    Step 0. Setting up Folders/Scripts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-writing-our-functions" class="md-nav__link">
+    Step 1. Writing our functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-writing-our-tests" class="md-nav__link">
+    Step 2. Writing our tests
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2. Writing our tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-global-variables" class="md-nav__link">
+    Defining Global Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize-input-types" class="md-nav__link">
+    Parametrize Input Types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametrize-consistent-dimensions" class="md-nav__link">
+    Parametrize Consistent Dimensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-fixtures-to-manage-state-and-dependencies" class="md-nav__link">
+    Creating Fixtures to Manage State and Dependencies
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-refactoring-our-tests" class="md-nav__link">
+    Step 3. Refactoring our tests
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3. Refactoring our tests">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-parametrize-for-different-transforms" class="md-nav__link">
+    Using parametrize for different transforms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references-citations" class="md-nav__link">
+    References &amp; Citations
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/gao-hongnan/gaohn-mlops-docs/edit/master/docs/mlops_docs/testing/testing.ipynb" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Testing</h1>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script>
+(function() {
+  function addWidgetsRenderer() {
+    var requireJsScript = document.createElement('script');
+    requireJsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js';
+
+    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+    var jupyterWidgetsScript = document.createElement('script');
+    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+    var widgetState;
+
+    // Fallback for older version:
+    try {
+      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+        widgetRendererSrc = 'jupyter-js-widgets@*/dist/embed.js';
+      }
+    } catch(e) {}
+
+    jupyterWidgetsScript.src = widgetRendererSrc;
+
+    document.body.appendChild(requireJsScript);
+    document.body.appendChild(jupyterWidgetsScript);
+  }
+
+  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+}());
+</script>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/gao-hongnan/gaohn-mlops-docs/blob/main/docs/mlops_docs/testing/07_testing.ipynb"><img alt="Open in Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="intuition">Intuition</h2>
+<p>Tests are a way for us to ensure that something works as intended. We're incentivized to implement tests and discover sources of error as early in the development cycle as possible so that we can reduce <a href="https://assets.deepsource.io/39ed384/images/blog/cost-of-fixing-bugs/chart.jpg">increasing downstream costs</a> and wasted time. Once we've designed our tests, we can automatically execute them every time we implement a change to our system and continue to build on them over time. In this lesson, we'll learn how to test machine learning code, data and models to construct a system that we can reliably iterate on.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="types-of-tests">Types of tests</h2>
+<p>There are many four majors types of tests which are utilized at different points in the development cycle:</p>
+<ul>
+<li>Unit tests: tests on individual components that each have a single responsibility (ex. function that filters a list).</li>
+<li>Integration tests: tests on the combined functionality of individual components (ex. data processing).</li>
+<li>System tests: tests on the design of a system for expected outputs given inputs (ex. training, inference, etc.).</li>
+<li>Acceptance tests: tests to verify that requirements have been met, usually referred to as User Acceptance Testing (UAT).</li>
+<li>Regression tests: testing errors we've seen before to ensure new changes don't reintroduce them.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="how-should-we-test">How should we test?</h2>
+<p>The framework to use when composing tests is the <a href="http://wiki.c2.com/?ArrangeActAssert">Arrange Act Assert methodology</a>.</p>
+<ul>
+<li>Arrange: set up the different inputs to test on.</li>
+<li>Act: apply the inputs on the component we want to test.</li>
+<li>Assert: confirm that we received the expected output.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="what-should-we-be-testing-for">What should we be testing for?</h2>
+<p>An example:</p>
+<blockquote>
+<p>When arranging our inputs and asserting our expected outputs, what are some aspects of our inputs and outputs that we should be testing for?</p>
+</blockquote>
+<ul>
+<li>inputs: data types, format, length, edge cases (min/max, small/large, etc.)</li>
+<li>outputs: data types, formats, exceptions, intermediary and final outputs</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="best-practices">Best practices</h2>
+<p>Regardless of the framework we use, it's important to strongly tie testing into the development process.</p>
+<ul>
+<li>
+<p>atomic: when creating unit components, we need to ensure that they have a <a href="https://en.wikipedia.org/wiki/Single-responsibility_principle">single responsibility</a> so that we can easily test them. If not, we'll need to split them into more granular units.</p>
+</li>
+<li>
+<p>compose: when we create new components, we want to compose tests to validate their functionality. It's a great way to ensure reliability and catch errors early on.</p>
+</li>
+<li>
+<p>regression: we want to account for new errors we come across with a regression test so we can ensure we don't reintroduce the same errors in the future.</p>
+</li>
+<li>
+<p>coverage: we want to ensure that 100% of our codebase has been accounter for. This doesn't mean writing a test for every single line of code but rather accounting for every single line (more on this in the coverage section below).</p>
+</li>
+<li>
+<p>automate: in the event we forget to run our tests before committing to a repository, we want to auto run tests for every commit. We'll learn how to do this locally using pre-commit hooks and remotely (ie. main branch) via GitHub actions in subsequent lessons.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="test-driven-development-or-otherwise">Test-driven development or Otherwise?</h2>
+<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test-driven development (TDD)</a> is the process where you write a test before completely writing the functionality to ensure that tests are always written. This is in contrast to writing functionality first and then composing tests afterwards. Here are my thoughts on this:</p>
+<ul>
+<li>
+<p>good to write tests as we progress, but it's not the representation of correctness.</p>
+</li>
+<li>
+<p>initial time should be spent on design before ever getting into the code or tests.</p>
+</li>
+<li>
+<p>using a test as guide doesn't mean that our functionality is error free.</p>
+</li>
+</ul>
+<p>Perfect coverage doesn't mean that our application is error free if those tests aren't meaningful and don't encompass the field of possible inputs, intermediates and outputs. Therefore, we should work towards better design and agility when facing errors, quickly resolving them and writing test cases around them to avoid them next time.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="pytest">Pytest</h2>
+<p>We're going to be using <a href="https://docs.pytest.org/en/stable/">pytest</a> as our testing framework for it's powerful builtin features such as parametrization, fixtures, markers, etc.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="configuration">Configuration</h3>
+<p>Pytest expects tests to be organized under a <code>tests</code> directory by default. However, we can also use our <code>pyproject.toml</code> file to configure any other test path directories as well. Once in the directory, pytest looks for python scripts starting with <code>tests_*.py</code> but we can configure it to read any other file patterns as well.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pytest</span>
+<span class="k">[tool.pytest.ini_options]</span>
+<span class="n">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">&quot;tests&quot;</span><span class="p">]</span>
+<span class="n">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;test_*.py&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="assertions">Assertions</h3>
+<p>Simple assertion testing example.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Creating Directories</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+
+<span class="n">SRC_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;src&quot;</span><span class="p">)</span>
+<span class="n">TEST_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;tests&quot;</span><span class="p">)</span>
+<span class="n">SRC_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">TEST_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">BASE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
+<span class="c1"># Pytest</span>
+<span class="p">[</span><span class="n">tool</span><span class="o">.</span><span class="n">pytest</span><span class="o">.</span><span class="n">ini_options</span><span class="p">]</span>
+<span class="n">testpaths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tests&quot;</span><span class="p">]</span>
+<span class="n">python_files</span> <span class="o">=</span> <span class="s2">&quot;test_*.py&quot;</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Writing /content/pyproject.toml
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">SRC_DIR</span><span class="p">}</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="s2">&quot;init file&quot;</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Writing /content/src/__init__.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">SRC_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">fruits</span><span class="o">.</span><span class="n">py</span>
+<span class="k">def</span> <span class="nf">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">fruit</span><span class="p">:</span>
+        <span class="n">fruit</span> <span class="o">=</span> <span class="n">fruit</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">fruit</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;watermelon&quot;</span><span class="p">,</span> <span class="s2">&quot;cherries&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">fruit</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="s2">&quot;mango&quot;</span><span class="p">,</span> <span class="s2">&quot;strawberry&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fruit</span><span class="si">}</span><span class="s2"> not in known list of fruits.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">False</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Writing /content/src/fruits.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_fruits</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">sys</span> 
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/content&quot;</span><span class="p">)</span> <span class="c1"># append to import properly.</span>
+<span class="kn">from</span> <span class="nn">src.fruits</span> <span class="kn">import</span> <span class="n">is_crisp</span>
+<span class="k">def</span> <span class="nf">test_is_crisp</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="s2">&quot;apple&quot;</span><span class="p">)</span> <span class="c1">#  or == True</span>
+    <span class="k">assert</span> <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="s2">&quot;Apple&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="s2">&quot;pear&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Writing /content/tests/test_fruits.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span>                                      <span class="c1"># all tests</span>
+<span class="err">!</span><span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span>                               <span class="c1"># tests under a directory</span>
+<span class="err">!</span><span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_fruits</span><span class="o">.</span><span class="n">py</span>                 <span class="c1"># tests for a single file</span>
+<span class="err">!</span><span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_fruits</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_is_crisp</span>  <span class="c1"># tests for a single function</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1
+rootdir: /content, inifile:
+plugins: typeguard-2.7.1
+collected 1 item                                                               
+
+tests/test_fruits.py .<span class="ansi-cyan-fg">                                                   [100%]</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 1 passed in 0.02 seconds ===========================</span>
+<span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1
+rootdir: /content, inifile:
+plugins: typeguard-2.7.1
+collected 1 item                                                               
+
+tests/test_fruits.py .<span class="ansi-cyan-fg">                                                   [100%]</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 1 passed in 0.01 seconds ===========================</span>
+<span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1
+rootdir: /content, inifile:
+plugins: typeguard-2.7.1
+collected 1 item                                                               
+
+tests/test_fruits.py .<span class="ansi-cyan-fg">                                                   [100%]</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 1 passed in 0.01 seconds ===========================</span>
+<span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1
+rootdir: /content, inifile:
+plugins: typeguard-2.7.1
+collected 1 item                                                               
+
+tests/test_fruits.py .<span class="ansi-cyan-fg">                                                   [100%]</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 1 passed in 0.01 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="classes">Classes</h3>
+<p>See <a href="https://github.com/GokuMohandas/follow/blob/testing/tests/tagifai/test_data.py">examples from madewithml repo</a> to understand better.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="interfaces">Interfaces</h3>
+<p>See <a href="https://madewithml.com/courses/mlops/testing/#interfaces">madewithml interface section</a>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="parametrize">Parametrize</h3>
+<p>So far, in our tests, we've had to create individual assert statements to validate different combinations of inputs and expected outputs. However, there's a bit of redundancy here because the inputs always feed into our functions as arguments and the outputs are compared with our expected outputs. To remove this redundancy, pytest has the <a href="https://docs.pytest.org/en/stable/parametrize.html"><code>@pytest.mark.parametrize</code></a> decorator which allows us to represent our inputs and outputs as parameters.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let us create a new python file <code>test_fruits_parametrize.py</code> to test it out.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_fruits_parametrize</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">sys</span> 
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/content&quot;</span><span class="p">)</span> <span class="c1"># append to import properly.</span>
+<span class="kn">from</span> <span class="nn">src.fruits</span> <span class="kn">import</span> <span class="n">is_crisp</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;fruit, crisp&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Apple&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_is_crisp_parametrize</span><span class="p">(</span><span class="n">fruit</span><span class="p">,</span> <span class="n">crisp</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="n">fruit</span><span class="p">)</span> <span class="o">==</span> <span class="n">crisp</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s2">&quot;fruit, exception&quot;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;pear&quot;</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_is_crisp_exceptions</span><span class="p">(</span><span class="n">fruit</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">exception</span><span class="p">):</span>
+        <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="n">fruit</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/tests/test_fruits_parametrize.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To fix line number, but for now the line number starts from the decorator <code>@pytest.mark.parametrize</code>.</p>
+<ul>
+<li>
+<p>[Line 2]: define the names of the parameters under the decorator, ex. "fruit, crisp" (note that this is one string). Note that this string names should correspond to the function defined under the decorator.</p>
+</li>
+<li>
+<p>[Lines 3-7]: provide a list of combinations of values for the parameters from Step 1.</p>
+</li>
+<li>
+<p>[Line 9]: pass in parameter names to the test function.</p>
+</li>
+<li>
+<p>[Line 10]: include necessary assert statements which will be executed for each of the combinations in the list from Step 2.</p>
+</li>
+<li>
+<p>[Line 12-20]: this tests exception handling as well if you pass in as such.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_fruits_parametrize</span><span class="o">.</span><span class="n">py</span>  <span class="c1"># tests for a single function</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.13, pytest-3.6.4, py-1.11.0, pluggy-0.7.1
+rootdir: /content, inifile:
+plugins: typeguard-2.7.1
+collected 4 items                                                              
+
+tests/test_fruits_parametrize.py ....<span class="ansi-cyan-fg">                                    [100%]</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 4 passed in 0.01 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="fixtures">Fixtures</h3>
+<p><a href="https://realpython.com/pytest-python-testing/#fixtures-managing-state-and-dependencies">What's the benefits of using fixtures?</a></p>
+<p>One obvious reason that I know of is about reducing the redundancies of re-defining inputs every time.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">nums_list</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">nums_list</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">mul</span><span class="p">(</span><span class="n">nums_list</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">nums_list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_add</span><span class="p">():</span>
+    <span class="n">nums_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">add</span><span class="p">(</span><span class="n">nums_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">15</span>
+
+<span class="k">def</span> <span class="nf">test_mul</span><span class="p">():</span>
+    <span class="n">nums_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="n">add</span><span class="p">(</span><span class="n">nums_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">120</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that you defined <code>nums_list</code> twice when we want to test different functions with the <strong>same inputs</strong>. So to reduce this redundancy, we can do:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pytest</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span> <span class="nf">sample_nums_list</span><span class="p">():</span>
+    <span class="n">nums_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">nums_list</span> 
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="unit-test">Unit Test</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="mock">Mock</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Readings:</p>
+<ul>
+<li>https://realpython.com/python-mock-library/</li>
+<li>https://docs.python.org/3/library/unittest.mock.html (READ THE API)</li>
+<li>PeekingDuck <code>draw.poses</code> test suites.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="example-walkthrough">Example Walkthrough</h2>
+<blockquote>
+<p><strong>The example walkthrough assumes you have a basic understanding of pytests.</strong></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="problem-setup">Problem Setup</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the field of object detection, given a query image, our task is to <strong>localize</strong> and <strong>classify</strong>. <strong>Localization</strong> needs labels and they are in the form of <strong>bounding boxes</strong>.</p>
+<p>As an example, we take the image from <a href="https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/">albumentations</a>, this image shows us a cat with a bounding box drawn around it. The coordinates are marked accordingly. One thing to note is that the image coordinates' origin starts at the top-left corner, so it is like a cartesian coordinate but rotated clockwise by 90 degrees.</p>
+<p><img alt="cat_bbox_example" src="https://albumentations.ai/docs/images/getting_started/augmenting_bboxes/bbox_example.jpg" /></p>
+<p>The bounding boxes can be represented in various different formats. Most notably, the Pascal-VOC, COCO and the YOLO format. More information can be found <a href="https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/">here</a>.</p>
+<p>Our task is two fold, one is to create some utility functions that transform from one format to another, and the other is to write some unit testing to ensure the correctness of our codes.</p>
+<p>For our purpose, we will deal with two formats, given a bounding box of Pascal-VOC format, we want to convert it to YOLO format, and vice versa. </p>
+<p>First, we briefly quote from <a href="https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/">albumentations</a> on the two formats.</p>
+<p>Pascal-VOC is a format used by the Pascal VOC dataset. Coordinates of a bounding box are encoded with four values in pixels: <code>[x_min, y_min, x_max, y_max]</code>. <code>x_min</code> and <code>y_min</code> are coordinates of the top-left corner of the bounding box. <code>x_max</code> and <code>y_max</code> are coordinates of bottom-right corner of the bounding box. For our purpose, we will call them <code>xyxy</code> for abbreviation.</p>
+<p>YOLO format's bounding box is represented by four values <code>[x_center, y_center, width, height]</code>. <code>x_center</code> and <code>y_center</code> are the normalized coordinates of the center of the bounding box. To make coordinates normalized, we take pixel values of x and y, which marks the center of the bounding box on the x- and y-axis. Then we divide the value of x by the width of the image and value of y by the height of the image. width and height represent the width and the height of the bounding box. They are normalized as well. For our purpose, we will call them <code>xywhn</code> for abbreviation.</p>
+<p>More concretely, if an image is of heigth of 480 and width 640 with its bounding box in Pascal-VOC format with coordinates</p>
+<div class="highlight"><pre><span></span><code><span class="n">xyxy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">98</span><span class="p">,</span> <span class="mi">345</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">462</span><span class="p">]</span> <span class="c1"># x1 y1 x2 y2</span>
+</code></pre></div>
+<p>we want to transform it to the equivalent YOLO coordinates</p>
+<div class="highlight"><pre><span></span><code><span class="n">xywhn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4046875</span><span class="p">,</span> <span class="mf">0.840625</span><span class="p">,</span> <span class="mf">0.503125</span><span class="p">,</span> <span class="mf">0.24375</span><span class="p">]</span> <span class="c1"># x y w h</span>
+</code></pre></div>
+<p>and vice versa. </p>
+<p>As of now, we have verified by hand that <code>[98, 345, 420, 462]</code> indeed convert correctly to <code>[0.4046875, 0.840625, 0.503125, 0.24375]</code> with the given height and width. But as programmers, our task is to reduce manual work, let's write out the functions to convert the bounding boxes in between formats.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="step-0-setting-up-foldersscripts">Step 0. Setting up Folders/Scripts</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code>%%bash
+mkdir<span class="w"> </span>-p<span class="w"> </span>bbox
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">cd</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">bbox</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>/content/bbox
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Creating Directories</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;__file__&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span>
+
+<span class="n">SRC_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;src&quot;</span><span class="p">)</span>
+<span class="n">TEST_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span> <span class="s2">&quot;tests&quot;</span><span class="p">)</span>
+<span class="n">SRC_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">TEST_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">SRC_DIR</span><span class="p">}</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span>
+<span class="s2">&quot;init file&quot;</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/src/__init__.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">BASE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">pyproject</span><span class="o">.</span><span class="n">toml</span>
+<span class="c1"># Pytest</span>
+<span class="p">[</span><span class="n">tool</span><span class="o">.</span><span class="n">pytest</span><span class="o">.</span><span class="n">ini_options</span><span class="p">]</span>
+<span class="n">testpaths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tests&quot;</span><span class="p">]</span>
+<span class="n">python_files</span> <span class="o">=</span> <span class="s2">&quot;test_*.py&quot;</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/pyproject.toml
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="step-1-writing-our-functions">Step 1. Writing our functions</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will create two functions <code>xyxy2xywhn</code> and <code>xywhn2xyxy</code>, the former takes in <code>inputs</code> of Pascal-VOC style bounding box and <strong>transforms</strong> it to its equivalent YOLO format, while the latter does the opposite.</p>
+<p>We will write our functions into <code>src/bbox_utils.py</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">SRC_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">bbox_utils</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">BboxType</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">cast_to_float</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="n">BboxType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BboxType</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">inputs</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">inputs</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="n">BboxType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BboxType</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">inputs</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">inputs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">xyxy2xywhn</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="n">BboxType</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BboxType</span><span class="p">:</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">cast_to_float</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">width</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">/=</span> <span class="n">height</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">-=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">outputs</span>
+
+
+<span class="k">def</span> <span class="nf">xywhn2xyxy</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="n">BboxType</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BboxType</span><span class="p">:</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">cast_to_float</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">*=</span> <span class="n">width</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">*=</span> <span class="n">height</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">outputs</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/src/bbox_utils.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>After writing the functions, we can simply just test the <strong>correctness</strong> of the transformation by passing in our pre-defined ground truths defined earlier.</p>
+<p>For example, when I pass in <code>xyxy = [98, 345, 420, 462]</code> to <code>voc2yolo</code>, I expect it <code>voc2yolo(xyxy, 480, 640)</code> to output <code>xywhn = [0.4046875, 0.840625, 0.503125, 0.24375]</code>.</p>
+<p>Without using any library, we can simply do something like the following, using an <code>assertion</code> </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="o">--</span><span class="n">append</span> <span class="p">{</span><span class="n">SRC_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">bbox_utils</span><span class="o">.</span><span class="n">py</span>
+
+<span class="n">xyxy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">98</span><span class="p">,</span> <span class="mi">345</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">462</span><span class="p">])</span>
+<span class="n">xywhn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mf">0.4046875</span><span class="p">,</span> <span class="mf">0.840625</span><span class="p">,</span> <span class="mf">0.503125</span><span class="p">,</span> <span class="mf">0.24375</span><span class="p">])</span>
+
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">xyxy2xywhn</span><span class="p">(</span><span class="n">xyxy</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">),</span> <span class="n">xywhn</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">xywhn2xyxy</span><span class="p">(</span><span class="n">xywhn</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">),</span> <span class="n">xyxy</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Appending to /content/bbox/src/bbox_utils.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code>%%bash
+python<span class="w"> </span>src/bbox_utils.py
+</code></pre></div>
+
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The assertion passed!</p>
+<p>This may seem fine, but it is very hard to scale up when you add in more transformations, imagine having 10 pairs of transformation functions, you will need to do the assertion 20 times.</p>
+<p>Furthermore, functions like these often have implicit assumptions that need to be rigourously tested as well.</p>
+<p>For example, we defined <code>BboxType = Union[np.ndarray, torch.Tensor]</code> and type hinted our functions' <code>inputs</code> and <code>outputs</code> to be both of this type. In particular, when a user pass in an array of type <code>torch.Tensor</code>, I expect the output to be of the same type as in the input. This is important as many operations performed on <code>torch.Tensor</code> does not carry forward to their <code>np.ndarray</code> counterpart. <strong><em>Our assert statement above does not check this, and this will be a problem. See example below.</em></strong></p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">xywhn2xyxy</span><span class="p">(</span><span class="n">inputs</span><span class="p">:</span> <span class="n">BboxType</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BboxType</span><span class="p">:</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">cast_to_float</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span> <span class="o">*=</span> <span class="n">width</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">*=</span> <span class="n">height</span>
+
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">+=</span> <span class="n">outputs</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">outputs</span>
+</code></pre></div>
+<p>Imagine if we coded our <code>xywhn2xyxy</code> as such, where we hard coded a conversion of <code>outputs</code> to <code>numpy</code>. Then the user will experience errors down stream.</p>
+<div class="highlight"><pre><span></span><code><span class="n">xywhn_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">])</span>
+<span class="n">xyxy_tensor</span> <span class="o">=</span> <span class="n">yolo2voc</span><span class="p">(</span><span class="n">yolo</span><span class="p">)</span>
+
+<span class="n">unsqueeze_voc</span> <span class="o">=</span> <span class="n">voc</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<p>The user trusted that when he passed in an input of type <code>torch.Tensor</code>, the <code>outputs</code> he get will also be the same type, in which he performed an operation <code>unsqueeze</code>, unique to torch. An error ensues, since now his <code>yolo</code> became a <code>np.ndarray</code> instead.</p>
+<p>Things get a bit more complicated when I also want to check that the input dimension is the same as the output dimension. For example, if I pass in a 3d-array as input, I expect the same dimension for its outputs. <strong><em>Our assert statement above does not check this.</em></strong></p>
+<p>This is where PyTests come in </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="step-2-writing-our-tests">Step 2. Writing our tests</h3>
+<p>This section will be written into <code>tests/test_bbox_utils_before_refactor.py</code>. </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="defining-global-variables">Defining Global Variables</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We start first by importing the libraries and define some global constants.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.testing</span> <span class="k">as</span> <span class="nn">npt</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/content/bbox&quot;</span><span class="p">)</span>  <span class="c1"># append to import properly.</span>
+<span class="kn">from</span> <span class="nn">src.bbox_utils</span> <span class="kn">import</span> <span class="n">clone</span><span class="p">,</span> <span class="n">xywhn2xyxy</span><span class="p">,</span> <span class="n">xyxy2xywhn</span>
+
+<span class="c1"># tolerance to assert_allclose</span>
+<span class="n">ATOL</span><span class="p">,</span> <span class="n">RTOL</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1e-07</span>
+
+<span class="c1"># image width and height</span>
+<span class="n">HEIGHT</span><span class="p">,</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">640</span>
+
+<span class="n">xyxy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">98</span><span class="p">,</span> <span class="mi">345</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">462</span><span class="p">]</span>
+<span class="n">xywhn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4046875</span><span class="p">,</span> <span class="mf">0.840625</span><span class="p">,</span> <span class="mf">0.503125</span><span class="p">,</span> <span class="mf">0.24375</span><span class="p">]</span>
+
+<span class="n">GT_BBOXES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;xyxy&quot;</span><span class="p">:</span> <span class="n">xyxy</span><span class="p">,</span> <span class="s2">&quot;xywhn&quot;</span><span class="p">:</span> <span class="n">xywhn</span><span class="p">}</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/tests/test_bbox_utils_before_refactor.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>In <code>line 14</code>, we defined the tolerance level for <code>allclose</code>, where we allow some slight numerical differences.</li>
+<li>In <code>lines 17</code> we defined the height and width of the image.</li>
+<li>In <code>lines 19-20</code>, we defined our ground truth values.</li>
+<li>In <code>line 22</code>, we defined a global variable <code>GT_BBOXES</code>, a dictionary that holds the <strong>bounding box format name</strong> as key and its <strong>ground truth</strong> as values. Note that the ground truth values are equivalent in their own format.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="parametrize-input-types">Parametrize Input Types</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We now want to test the correctness of the transformation functions we wrote.</p>
+<p>Recall earlier we used </p>
+<div class="highlight"><pre><span></span><code><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">xyxy2xywhn</span><span class="p">(</span><span class="n">xyxy</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">),</span> <span class="n">xywhn</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-05</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">)</span>
+</code></pre></div>
+<p>to test the correctness. This assumes that our input type is of <code>np.ndarray</code>, but since our functions allow <code>torch.Tensor</code> as well, we need to ensure that our test function can accept two types of input type, <code>np.ndarray</code> and <code>torch.Tensor</code>, and still work.</p>
+<p>So for one transform function <code>xyxy2xywhn</code>, we need to test it <strong><em>twice</em></strong>, one for which the input data type is a <code>np.ndarray</code>, the other when it's a <code>torch.Tensor</code>. This means we need to write more assertions!</p>
+<p>Fortunately, as we have seen in the <a href="https://docs.pytest.org/en/6.2.x/parametrize.html">pytest documentation</a>, the decorator <code>pytest.mark.parametrize</code> does just that.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="o">--</span><span class="n">append</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span>
+
+<span class="k">def</span> <span class="nf">list2numpy</span><span class="p">(</span><span class="n">input_list</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">list2torch</span><span class="p">(</span><span class="n">input_list</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;convert_type&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">list2numpy</span><span class="p">,</span> <span class="n">list2torch</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_correct_transformation_xyxy2xywhn</span><span class="p">(</span><span class="n">convert_type</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test correctness of conversion from VOC to YOLO.&quot;&quot;&quot;</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">GT_BBOXES</span><span class="p">[</span><span class="s2">&quot;xyxy&quot;</span><span class="p">])</span>
+    <span class="n">to_bbox</span> <span class="o">=</span> <span class="n">xyxy2xywhn</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">)</span>
+
+    <span class="n">expected_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">GT_BBOXES</span><span class="p">[</span><span class="s2">&quot;xywhn&quot;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">npt</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Appending to /content/bbox/tests/test_bbox_utils_before_refactor.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<p><code>lines 3-7</code> consists of two utility functions, <code>list2numpy</code> and <code>list2torch</code>, which converts the ground truth bounding box inputs to either <code>numpy</code> or <code>torch</code> (note that the ground truth is created as a <code>list</code> so that the conversion is easy). </p>
+</li>
+<li>
+<p><code>line 9</code> defines the <code>pytest.mark.parametrize</code> decorator where</p>
+<ul>
+<li>the <em>first argument</em> is a comma-delimited string of parameter names, this string will be the argument names in the function that follows. Here I named it <code>"convert_type"</code>;</li>
+<li>the <em>second argument</em> will define what <em>values</em> the <em>first argument</em> can take on. This argument has type <code>List[Tuple[Any]]</code> or <code>List[Any]</code> or even single values <code>Any</code>. In our example, our first argument <code>convert_type</code> can take on values of either <code>list2numpy</code> or <code>list2torch</code>, so we should populate the second argument as a list of two elements: <code>[list2numpy, list2torch]</code>. </li>
+</ul>
+</li>
+<li>
+<p><code>line 10</code> is our function name <code>test_correct_transformation_xyxy2xywhn</code> and as the name suggests, it will test whether our conversion of <code>voc</code> to <code>yolo</code> is correct. Note that the argument is named <code>convert_type</code>, corresponding exactly to our <em>first argument</em> in the decorator.</p>
+</li>
+<li>
+<p><code>line 12</code> is where we apply our argument <code>convert_type</code> to the input <code>GT_BBOXES["voc"] = [98, 345, 420, 462]</code>, the <code>parametrize</code> decorator will then apply <code>list2numpy</code> and <code>list2torch</code> this input and convert the <code>list</code> to a <code>np.ndarray</code> and <code>torch.Tensor</code> respectively. We name this input <code>from_bbox</code>.</p>
+</li>
+<li>
+<p><code>line 13</code> will then convert the input using our function <code>voc2yolo</code> to its yolo equivalent format. We name this converted input <code>to_bbox</code>.</p>
+</li>
+<li>
+<p><code>line 15</code> gets the ground truth for yolo. Note I need to convert them into the same type as the input ground truth using <code>convert_type</code>. We name this variable <code>expected_bbox</code>.</p>
+</li>
+<li>
+<p><code>line 17-20</code> will then check if our converted bounding box input <code>to_bbox</code> matches the ground truth for yolo <code>expected_bbox</code> using <code>numpy.testing</code> and <code>torch.testing</code>.</p>
+</li>
+</ul>
+<p>The process does not stop here, since we passed in two values for the function <code>convert_type</code>, it will also loop through the <code>list2torch</code> step. We will see it in action now by running the <code>pytest</code> command.</p>
+<p>Let's run <code>pytest</code> and see what happens.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span>       <span class="c1"># tests for a single file</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /content/bbox, inifile:
+plugins: typeguard-2.7.1
+collected 2 items                                                              
+
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn[list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn[list2torch] <span class="ansi-green-fg">PASSED</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 2 passed in 0.62 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn<span class="o">[</span>list2numpy<span class="o">]</span><span class="w"> </span>PASSED
+$<span class="w"> </span>tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn<span class="o">[</span>list2torch<span class="o">]</span><span class="w"> </span>PASSED
+</code></pre></div>
+<p>means that the test function has tested for both combinations, the case where the input is a <code>np.ndarray</code> and when it is a <code>torch.Tensor</code>, both passed the assertion!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As important thing to realize here is that we are only testing the <strong><em>correctness</em></strong> of this transformation. It does not test whether our transformation functions ensure the same return type as the inputs. 
+For that, we need to write a test to ensure the outputs has the same type as the inputs.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="o">--</span><span class="n">append</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;convert_type&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">list2numpy</span><span class="p">,</span> <span class="n">list2torch</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_correct_return_type_xyxy2xywhn</span><span class="p">(</span><span class="n">convert_type</span><span class="p">):</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">GT_BBOXES</span><span class="p">[</span><span class="s2">&quot;xyxy&quot;</span><span class="p">])</span>
+    <span class="n">to_bbox</span> <span class="o">=</span> <span class="n">xyxy2xywhn</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">))</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Appending to /content/bbox/tests/test_bbox_utils_before_refactor.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span>       <span class="c1"># tests for a single file</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /content/bbox, inifile:
+plugins: typeguard-2.7.1
+collected 4 items                                                              
+
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn[list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn[list2torch] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_return_type_xyxy2xywhn[list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_return_type_xyxy2xywhn[list2torch] <span class="ansi-green-fg">PASSED</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 4 passed in 0.65 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we are sure that the <code>inputs</code> and <code>outputs</code> of our functions are of the same type!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="parametrize-consistent-dimensions">Parametrize Consistent Dimensions</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Our next step is to test that our transform functions can handle different dimensions. Whether the input is a 3d-tensor, or a 10d-array, all of them should work. Of course, our main goal here is still to test the correctness of the transformation, but bear in mind we need to have a separate test to check the consistency of input and output dimensions (i.e. passing in a 2d-array will result in an output of 2d-array).</p>
+<p>Let's say we want to test if the code works for 3 dimensions, means checking if the code can execute correctly without error for dimensions in <code>[1d, 2d, 3d]</code>.</p>
+<p>This is not trivial as we need to check for 6 different cases, a result of the cartesian product of</p>
+<div class="highlight"><pre><span></span><code>[list2numpy, list2torch] x [0, 1, 2] = {(list2numpy, 0), (list2numpy, 1), ...}
+</code></pre></div>
+<p>a total of 6 combinations.</p>
+<p>We will continue to leverage <code>pytest</code>'s parametrize to test all 6 cases.</p>
+<p>There will not be much change besides defining an extra utility function <code>expand_dim</code> will expands the input's dimensions according to the <code>num_dims</code> argument.</p>
+<p>To be able to use the cartesian product, we simply add one more decorator below our <code>convert_type</code>, in which case it now takes in <code>num_dims</code> as first argument, and <code>[0, 1, 2]</code> as the second, indicating that we want the function to test for the aforementioned 3 dimensions. Having two parametrize decorators stacked together means it will execute in combination, exactly as what we wanted.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="o">--</span><span class="n">append</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span>
+
+<span class="k">def</span> <span class="nf">expand_dim</span><span class="p">(</span>
+    <span class="n">bboxes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">num_dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Expand the dimension of bboxes to num_dims.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        np.expand_dims will not work for tuple dim numpy &lt; 1.18.0 which</span>
+<span class="sd">        is not the version in our cicd.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bboxes</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">bboxes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bboxes</span><span class="p">[(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="n">num_dims</span><span class="p">]</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;convert_type&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">list2numpy</span><span class="p">,</span> <span class="n">list2torch</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;num_dims&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_correct_transformation_xyxy2xywhn_with_dims</span><span class="p">(</span><span class="n">convert_type</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test conversion from VOC to YOLO.&quot;&quot;&quot;</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">GT_BBOXES</span><span class="p">[</span><span class="s2">&quot;xyxy&quot;</span><span class="p">])</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">expand_dim</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">)</span>
+
+    <span class="n">to_bbox</span> <span class="o">=</span> <span class="n">xyxy2xywhn</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">)</span>
+
+    <span class="n">expected_bbox</span> <span class="o">=</span> <span class="n">expand_dim</span><span class="p">(</span><span class="n">convert_type</span><span class="p">(</span><span class="n">GT_BBOXES</span><span class="p">[</span><span class="s2">&quot;xywhn&quot;</span><span class="p">]),</span> <span class="n">num_dims</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">npt</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Appending to /content/bbox/tests/test_bbox_utils_before_refactor.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_correct_transformation_xyxy2xywhn_with_dims</span> <span class="o">-</span><span class="n">s</span>       <span class="c1"># tests for a single file</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /content/bbox, inifile:
+plugins: typeguard-2.7.1
+collected 6 items                                                              
+
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_dims[0-list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_dims[0-list2torch] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_dims[1-list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_dims[1-list2torch] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_dims[2-list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_dims[2-list2torch] <span class="ansi-green-fg">PASSED</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 6 passed in 0.62 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We see that a total of 6 results were tested by <code>test_correct_transformation_xyxy2xywhn_with_dims</code>. </p>
+<p>Notice that in each line they indicate the combination, for example, the first line says <code>test_voc2yolo[0-list2numpy] PASSED</code>, which means they tested for the case of <code>0</code> dimensions and the input type of <code>np.ndarray</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can also test whether the input dimensions must match the output dimensions. But since <code>np.testing.assert_allclose</code> will raise an error if their shape mismatch, we will skip over this. It may still be good practice to write test as we typically want one test to handle one type of error.</p>
+<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">][)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">raises</span> <span class="n">an</span> <span class="n">error</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="creating-fixtures-to-manage-state-and-dependencies">Creating Fixtures to Manage State and Dependencies</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The idea of fixtures is that if you have multiple test functions that take in a "fixed" set of inputs (i.e. <code>GT_BBOXES</code>), then we should consider using fixtures.</p>
+<p>In our past 2 test functions, <code>test_correct_return_type_xyxy2xywhn</code> and <code>test_correct_transformation_xyxy2xywhn</code>, we both used the same set of global constant <code>GT_BBOXES</code>, we can imagine now that for our testing on <code>xywhn2xyxy</code>, we would use this variable again.</p>
+<p>For that we can write a function <code>gt_bboxes</code> that has <code>pytest.fixture</code> as decorator. Subsequently, we can pass <code>gt_bboxes</code> to any test functions.</p>
+<p>For example,</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">gt_bboxes</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">GT_BBOXES</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;convert_type&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">list2numpy</span><span class="p">,</span> <span class="n">list2torch</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;num_dims&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_voc2yolo</span><span class="p">(</span><span class="n">gt_bboxes</span><span class="p">,</span> <span class="n">convert_type</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">):</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">gt_bboxes</span><span class="p">[</span><span class="s2">&quot;xyxy&quot;</span><span class="p">])</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p>where we simply defined a new fixture function called <code>gt_bboxes</code>, decorated with <code>pytest.fixture(scope="module")</code>. The <a href="https://betterprogramming.pub/understand-5-scopes-of-pytest-fixtures-1b607b5c19ed">scopes</a> defines how frequent your fixture is called, expensive operations often require a higher scope.</p>
+<p>However, the same result can be achieved with our old method, defining a global constant <code>GT_BBOXES</code> work as well. This is true in our case because <code>GT_BBOXES</code> is a relative cheap operation. But imagine if creating our <code>GT_BBOXES</code> is an expensive operation (i.e. <code>GT_BBOXES</code> involves creating a 10,000 by 10,000 array), then having it defined under a fixture with a proper scope is important.</p>
+<p>For our purpose, imagine a scenario where we have 3 test files <code>test_1.py, test_2.py, test_3.py</code> which all need <code>GT_BBOXES</code>, then we can now put this fixture in a file called <code>conftest.py</code>, with <code>scope</code> to be defined at a modular level, when running your test suites across all 3 files, <code>gt_bboxes</code> will be called once and re-use it across all functions in these 3 files.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">conftest</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">pytest</span> 
+
+<span class="n">xyxy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">98</span><span class="p">,</span> <span class="mi">345</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">462</span><span class="p">]</span>
+<span class="n">xywhn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4046875</span><span class="p">,</span> <span class="mf">0.840625</span><span class="p">,</span> <span class="mf">0.503125</span><span class="p">,</span> <span class="mf">0.24375</span><span class="p">]</span>
+
+<span class="n">GT_BBOXES</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;xyxy&quot;</span><span class="p">:</span> <span class="n">xyxy</span><span class="p">,</span> <span class="s2">&quot;xywhn&quot;</span><span class="p">:</span> <span class="n">xywhn</span><span class="p">}</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">gt_bboxes</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">GT_BBOXES</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/tests/conftest.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="o">--</span><span class="n">append</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;convert_type&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">list2numpy</span><span class="p">,</span> <span class="n">list2torch</span><span class="p">])</span>
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;num_dims&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">test_correct_transformation_xyxy2xywhn_with_fixture</span><span class="p">(</span><span class="n">gt_bboxes</span><span class="p">,</span> <span class="n">convert_type</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test conversion from VOC to YOLO.&quot;&quot;&quot;</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">gt_bboxes</span><span class="p">[</span><span class="s2">&quot;xyxy&quot;</span><span class="p">])</span>
+    <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">expand_dim</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">)</span>
+
+    <span class="n">to_bbox</span> <span class="o">=</span> <span class="n">xyxy2xywhn</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">)</span>
+
+    <span class="n">expected_bbox</span> <span class="o">=</span> <span class="n">expand_dim</span><span class="p">(</span><span class="n">convert_type</span><span class="p">(</span><span class="n">gt_bboxes</span><span class="p">[</span><span class="s2">&quot;xywhn&quot;</span><span class="p">]),</span> <span class="n">num_dims</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_close</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">npt</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Appending to /content/bbox/tests/test_bbox_utils_before_refactor.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We now run the test on this function we created <code>test_correct_transformation_xyxy2xywhn_with_fixture</code>, the only difference with <code>test_correct_transformation_xyxy2xywhn</code> is that it now takes in an argument <code>gt_bboxes</code> corresponding to the fixture name, all instances of the global variable <code>GT_BBOXES</code> are changed to <code>gt_bboxes</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span> <span class="o">-</span><span class="n">v</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_bbox_utils_before_refactor</span><span class="o">.</span><span class="n">py</span><span class="p">::</span><span class="n">test_correct_transformation_xyxy2xywhn_with_fixture</span> <span class="o">-</span><span class="n">s</span>       <span class="c1"># tests for a single file</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /content/bbox, inifile:
+plugins: typeguard-2.7.1
+collected 6 items                                                              
+
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_fixture[0-list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_fixture[0-list2torch] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_fixture[1-list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_fixture[1-list2torch] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_fixture[2-list2numpy] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_before_refactor.py::test_correct_transformation_xyxy2xywhn_with_fixture[2-list2torch] <span class="ansi-green-fg">PASSED</span>
+
+<span class="ansi-green-intense-fg ansi-bold">=========================== 6 passed in 0.63 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There is no need to import <code>conftest</code> into any of our tests, <code>pytest</code> handles it for us.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="step-3-refactoring-our-tests">Step 3. Refactoring our tests</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="using-parametrize-for-different-transforms">Using parametrize for different transforms</h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now I actually have more than 10 transform functions that converts bounding boxes. This means I have to write 10 cases: <code>test_xyxy2xywhn</code>, <code>test_xywhn2xyxy</code>, ...</p>
+<p>Most of the code inside the test functions are the same.</p>
+<p>We can again leverage on parametrize and define the first argument to be <code>conversion_name</code> which takes on values such as <code>["xyxy2xywhn", "xywhn2xyxy"]</code>. These values will then be our identifier on which conversion/transform to use.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For that, we need to revamp our fixture <code>gt_bboxes</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">conftest</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pytest</span> 
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;/content/bbox&quot;</span><span class="p">)</span>  <span class="c1"># append to import properly.</span>
+<span class="kn">from</span> <span class="nn">src.bbox_utils</span> <span class="kn">import</span> <span class="n">xywhn2xyxy</span><span class="p">,</span> <span class="n">xyxy2xywhn</span>
+
+<span class="n">xyxy</span> <span class="o">=</span> <span class="p">[</span><span class="mi">98</span><span class="p">,</span> <span class="mi">345</span><span class="p">,</span> <span class="mi">420</span><span class="p">,</span> <span class="mi">462</span><span class="p">]</span>
+<span class="n">xywhn</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4046875</span><span class="p">,</span> <span class="mf">0.840625</span><span class="p">,</span> <span class="mf">0.503125</span><span class="p">,</span> <span class="mf">0.24375</span><span class="p">]</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">gt_bboxes</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;xyxy2xywhn&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">xyxy</span><span class="p">,</span> <span class="n">xywhn</span><span class="p">,</span> <span class="n">xyxy2xywhn</span><span class="p">],</span> <span class="s2">&quot;xywhn2xyxy&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">xywhn</span><span class="p">,</span> <span class="n">xyxy</span><span class="p">,</span> <span class="n">xywhn2xyxy</span><span class="p">]}</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/tests/conftest.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The changes are:</p>
+<ul>
+<li>The key is now exact name of the function call of the transformation. This means that if our transform function is <code>xyxy2xywhn</code>, then our key is called <code>"xyxy2xywhn"</code>. </li>
+<li>The corresponding value is a list, where <ul>
+<li>the first element is the ground truth of the input (i.e. <code>xyxy</code>), </li>
+<li>and the second element is the ground truth of the output after the conversion (i.e. <code>xywhn</code>),</li>
+<li>the third element is the function call itself.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">writefile</span> <span class="p">{</span><span class="n">TEST_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">test_bbox_utils_after_refactor</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.testing</span> <span class="k">as</span> <span class="nn">npt</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">src.bbox_utils</span> <span class="kn">import</span> <span class="n">clone</span>
+
+<span class="n">CONVERT_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">]</span>
+<span class="n">NUM_DIMS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">TRANSFORMS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;xyxy2xywhn&quot;</span><span class="p">,</span> <span class="s2">&quot;xywhn2xyxy&quot;</span><span class="p">]</span>
+
+<span class="c1"># tolerance to assert_allclose</span>
+<span class="n">ATOL</span><span class="p">,</span> <span class="n">RTOL</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1e-07</span>
+
+<span class="c1"># image height and width</span>
+<span class="n">HEIGHT</span><span class="p">,</span> <span class="n">WIDTH</span> <span class="o">=</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">640</span>
+
+<span class="k">def</span> <span class="nf">list2numpy</span><span class="p">(</span><span class="n">input_list</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">list2torch</span><span class="p">(</span><span class="n">input_list</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">input_list</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">expand_dim</span><span class="p">(</span>
+    <span class="n">bboxes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">num_dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Expand the dimension of bboxes to num_dims.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        np.expand_dims will not work for tuple dim numpy &lt; 1.18.0 which</span>
+<span class="sd">        is not the version in our cicd.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bboxes</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">bboxes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bboxes</span><span class="p">[(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="n">num_dims</span><span class="p">]</span>
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;convert_type&quot;</span><span class="p">,</span> <span class="n">CONVERT_TYPES</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">TestBboxTransforms</span><span class="p">:</span>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;conversion_name&quot;</span><span class="p">,</span> <span class="n">TRANSFORMS</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_correct_return_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gt_bboxes</span><span class="p">,</span> <span class="n">convert_type</span><span class="p">,</span> <span class="n">conversion_name</span><span class="p">):</span>
+        <span class="n">from_bbox</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">conversion_fn</span> <span class="o">=</span> <span class="n">gt_bboxes</span><span class="p">[</span><span class="n">conversion_name</span><span class="p">]</span>
+        <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">)</span>
+
+        <span class="n">to_bbox</span> <span class="o">=</span> <span class="n">conversion_fn</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">))</span>
+
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;num_dims&quot;</span><span class="p">,</span> <span class="n">NUM_DIMS</span><span class="p">)</span>
+    <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;conversion_name&quot;</span><span class="p">,</span> <span class="n">TRANSFORMS</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">test_correct_transformation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">gt_bboxes</span><span class="p">,</span> <span class="n">convert_type</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">,</span> <span class="n">conversion_name</span>
+    <span class="p">):</span>
+        <span class="n">from_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">conversion_fn</span> <span class="o">=</span> <span class="n">gt_bboxes</span><span class="p">[</span><span class="n">conversion_name</span><span class="p">]</span>
+        <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">convert_type</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">)</span>
+        <span class="n">from_bbox</span> <span class="o">=</span> <span class="n">expand_dim</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">num_dims</span><span class="p">)</span>
+
+        <span class="n">to_bbox</span> <span class="o">=</span> <span class="n">conversion_fn</span><span class="p">(</span><span class="n">from_bbox</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">HEIGHT</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">WIDTH</span><span class="p">)</span>  
+
+        <span class="n">expected_bbox</span> <span class="o">=</span> <span class="n">expand_dim</span><span class="p">(</span><span class="n">convert_type</span><span class="p">(</span><span class="n">expected_bbox</span><span class="p">),</span> <span class="n">num_dims</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">npt</span><span class="o">.</span><span class="n">assert_allclose</span><span class="p">(</span><span class="n">to_bbox</span><span class="p">,</span> <span class="n">expected_bbox</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">ATOL</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">RTOL</span><span class="p">)</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code>Overwriting /content/bbox/tests/test_bbox_utils_after_refactor.py
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pytest</span> <span class="o">-</span><span class="n">W</span> <span class="n">ignore</span> <span class="o">-</span><span class="n">v</span> <span class="n">tests</span><span class="o">/</span><span class="n">test_bbox_utils_after_refactor</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">s</span>       <span class="c1"># tests for a single file</span>
+</code></pre></div>
+
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+<code><span class="ansi-bold">============================= test session starts ==============================</span>
+platform linux -- Python 3.7.14, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /content/bbox, inifile:
+plugins: typeguard-2.7.1
+collected 16 items                                                             
+
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_return_type[xyxy2xywhn-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_return_type[xyxy2xywhn-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_return_type[xywhn2xyxy-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_return_type[xywhn2xyxy-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xyxy2xywhn-0-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xyxy2xywhn-0-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xyxy2xywhn-1-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xyxy2xywhn-1-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xyxy2xywhn-2-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xyxy2xywhn-2-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xywhn2xyxy-0-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xywhn2xyxy-0-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xywhn2xyxy-1-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xywhn2xyxy-1-convert_type1] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xywhn2xyxy-2-convert_type0] <span class="ansi-green-fg">PASSED</span>
+tests/test_bbox_utils_after_refactor.py::TestBboxTransforms::test_correct_transformation[xywhn2xyxy-2-convert_type1] <span class="ansi-green-fg">PASSED</span>
+
+<span class="ansi-green-intense-fg ansi-bold">========================== 16 passed in 0.04 seconds ===========================</span>
+</code>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We see that we achieved the same results.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="references-citations">References &amp; Citations</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>
+<p>https://madewithml.com/courses/mlops/testing/</p>
+<p><div class="highlight"><pre><span></span><code>@misc{goku mohandas_2020, title={Testing Machine Learning Systems: Code, Data and Models - Made With ML}, url={https://madewithml.com/courses/mlops/testing/}, journal={Madewithml.com}, author={Goku Mohandas}, year={2020} }
+</code></pre></div>
+‌
+- https://realpython.com/pytest-python-testing/</p>
+<div class="highlight"><pre><span></span><code>@misc{real python_2022, title={Effective Python Testing With Pytest}, url={https://realpython.com/pytest-python-testing/}, journal={Realpython.com}, publisher={Real Python}, author={Real Python}, year={2022}, month={Jun} }
+</code></pre></div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../config/config_management/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Config Management" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Config Management
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../git/introduction/" class="md-footer__link md-footer__link--next" aria-label="Next: Introduction" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Introduction
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021-2022 Gao Hongnan
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://sg.linkedin.com/in/reighnss" target="_blank" rel="noopener" title="sg.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/gao-hongnan" target="_blank" rel="noopener" title="gaohn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

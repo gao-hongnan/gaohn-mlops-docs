@@ -1,0 +1,1809 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://gao-hongnan.github.io/gaohn-mlops-docs/mlops_docs/git/collaborating/contributing_to_open_source_projects/">
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.13">
+    
+    
+      
+        <title>Contributing to Open Source Projects, A Generic Sample Workflow - Hongnan Gao's MLOps Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.e411adfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.cc9b2e1e.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../css/extra.css">
+    
+      <link rel="stylesheet" href="../../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fork-the-repository" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Hongnan Gao&#39;s MLOps Documentation" class="md-header__button md-logo" aria-label="Hongnan Gao's MLOps Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hongnan Gao's MLOps Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing to Open Source Projects, A Generic Sample Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/gao-hongnan/gaohn-mlops-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MLops-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Hongnan Gao&#39;s MLOps Documentation" class="md-nav__button md-logo" aria-label="Hongnan Gao's MLOps Documentation" data-md-component="logo">
+      
+  <img src="../../../../assets/logo.png" alt="logo">
+
+    </a>
+    Hongnan Gao's MLOps Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/gao-hongnan/gaohn-mlops-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zM277.3 415.7c-8.4 1.5-11.5-3.7-11.5-8 0-5.4.2-33 .2-55.3 0-15.6-5.2-25.5-11.3-30.7 37-4.1 76-9.2 76-73.1 0-18.2-6.5-27.3-17.1-39 1.7-4.3 7.4-22-1.7-45-13.9-4.3-45.7 17.9-45.7 17.9-13.2-3.7-27.5-5.6-41.6-5.6-14.1 0-28.4 1.9-41.6 5.6 0 0-31.8-22.2-45.7-17.9-9.1 22.9-3.5 40.6-1.7 45-10.6 11.7-15.6 20.8-15.6 39 0 63.6 37.3 69 74.3 73.1-4.8 4.3-9.1 11.7-10.6 22.3-9.5 4.3-33.8 11.7-48.3-13.9-9.1-15.8-25.5-17.1-25.5-17.1-16.2-.2-1.1 10.2-1.1 10.2 10.8 5 18.4 24.2 18.4 24.2 9.7 29.7 56.1 19.7 56.1 19.7 0 13.9.2 36.5.2 40.6 0 4.3-3 9.5-11.5 8-66-22.1-112.2-84.9-112.2-158.3 0-91.8 70.2-161.5 162-161.5S388 165.6 388 257.4c.1 73.4-44.7 136.3-110.7 158.3zm-98.1-61.1c-1.9.4-3.7-.4-3.9-1.7-.2-1.5 1.1-2.8 3-3.2 1.9-.2 3.7.6 3.9 1.9.3 1.3-1 2.6-3 3zm-9.5-.9c0 1.3-1.5 2.4-3.5 2.4-2.2.2-3.7-.9-3.7-2.4 0-1.3 1.5-2.4 3.5-2.4 1.9-.2 3.7.9 3.7 2.4zm-13.7-1.1c-.4 1.3-2.4 1.9-4.1 1.3-1.9-.4-3.2-1.9-2.8-3.2.4-1.3 2.4-1.9 4.1-1.5 2 .6 3.3 2.1 2.8 3.4zm-12.3-5.4c-.9 1.1-2.8.9-4.3-.6-1.5-1.3-1.9-3.2-.9-4.1.9-1.1 2.8-.9 4.3.6 1.3 1.3 1.8 3.3.9 4.1zm-9.1-9.1c-.9.6-2.6 0-3.7-1.5s-1.1-3.2 0-3.9c1.1-.9 2.8-.2 3.7 1.3 1.1 1.5 1.1 3.3 0 4.1zm-6.5-9.7c-.9.9-2.4.4-3.5-.6-1.1-1.3-1.3-2.8-.4-3.5.9-.9 2.4-.4 3.5.6 1.1 1.3 1.3 2.8.4 3.5zm-6.7-7.4c-.4.9-1.7 1.1-2.8.4-1.3-.6-1.9-1.7-1.5-2.6.4-.6 1.5-.9 2.8-.4 1.3.7 1.9 1.8 1.5 2.6z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    MLops-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Developing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Developing" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Developing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developing/general_workflow/" class="md-nav__link">
+        General Workflow
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developing/packaging_and_setup/" class="md-nav__link">
+        Packing and Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developing/styling/" class="md-nav__link">
+        Styling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developing/scripting/" class="md-nav__link">
+        Scripting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developing/pre-commit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../developing/documentation/" class="md-nav__link">
+        Documentation
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Software Design Pattern
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Software Design Pattern" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Software Design Pattern
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_principles/python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../software_principles/design_patterns/" class="md-nav__link">
+        Design Patterns
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Config Management
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Config Management" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Config Management
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../config/config_management/" class="md-nav__link">
+        Config Management
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/testing/" class="md-nav__link">
+        Testing
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Git" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install_git/" class="md-nav__link">
+        Install Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3" type="checkbox" id="__nav_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3">
+          Getting Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Getting Started" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_1" type="checkbox" id="__nav_6_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_1">
+          Setting Up Repository
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Setting Up Repository" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          Setting Up Repository
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/setting_up_repository/setting_up_repository/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/setting_up_repository/git_init/" class="md-nav__link">
+        git init
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/setting_up_repository/git_clone/" class="md-nav__link">
+        git clone
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/setting_up_repository/git_config/" class="md-nav__link">
+        git config
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_2" type="checkbox" id="__nav_6_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_2">
+          Saving Changes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Saving Changes" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Saving Changes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/saving_changes/saving_changes/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/saving_changes/git_add/" class="md-nav__link">
+        git add
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/saving_changes/git_commit/" class="md-nav__link">
+        git commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/saving_changes/git_diff/" class="md-nav__link">
+        git diff
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/saving_changes/git_stash/" class="md-nav__link">
+        git stash
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_3" type="checkbox" id="__nav_6_3_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_3">
+          Inspecting a Repository
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Inspecting a Repository" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Inspecting a Repository
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/inspecting_repository/inspecting_repository/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/inspecting_repository/git_status/" class="md-nav__link">
+        git status
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_4" type="checkbox" id="__nav_6_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_4">
+          Undoing Changes
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Undoing Changes" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Undoing Changes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/undoing_changes/undoing_changes/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_3_5" type="checkbox" id="__nav_6_3_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_3_5">
+          Rewriting History
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Rewriting History" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Rewriting History
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/rewriting_history/rewriting_history/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4" type="checkbox" id="__nav_6_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4">
+          Collaborating
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Collaborating" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          Collaborating
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_1" type="checkbox" id="__nav_6_4_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_1">
+          Syncing
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Syncing" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_1">
+          <span class="md-nav__icon md-icon"></span>
+          Syncing
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syncing/syncing/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syncing/git_remote/" class="md-nav__link">
+        git remote
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syncing/git_push/" class="md-nav__link">
+        git push
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syncing/git_fetch/" class="md-nav__link">
+        git fetch
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syncing/git_pull/" class="md-nav__link">
+        git pull
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_4_2" type="checkbox" id="__nav_6_4_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_4_2">
+          Branching and Merging
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Branching and Merging" data-md-level="3">
+        <label class="md-nav__title" for="__nav_6_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Branching and Merging
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branching_and_merging/branching_and_merging/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branching_and_merging/git_branch/" class="md-nav__link">
+        git branch
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Contributing to Open Source Projects, A Generic Sample Workflow
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Contributing to Open Source Projects, A Generic Sample Workflow
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fork-the-repository" class="md-nav__link">
+    Fork the Repository
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone-your-forked-repository" class="md-nav__link">
+    Clone your Forked Repository
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sync-forked-repository-with-upstream" class="md-nav__link">
+    Sync Forked Repository with Upstream
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync Forked Repository with Upstream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-a-remote-for-a-forked-repository" class="md-nav__link">
+    Configuring a Remote for a Forked Repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncing-the-forked-repository-with-upstream" class="md-nav__link">
+    Syncing the Forked Repository with Upstream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncing-the-forked-repository-with-upstreams-other-branches" class="md-nav__link">
+    Syncing the Forked Repository with Upstream's Other Branches
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-pull-request" class="md-nav__link">
+    Creating Pull Request
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-rebase-my-workflow-vs-git-merge" class="md-nav__link">
+    Git Rebase (My Workflow) vs Git Merge
+  </a>
+  
+    <nav class="md-nav" aria-label="Git Rebase (My Workflow) vs Git Merge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-rebase" class="md-nav__link">
+    Git Rebase
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_5" type="checkbox" id="__nav_6_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6_5">
+          Advanced Tips
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Advanced Tips" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_5">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Tips
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced_tips/merging_vs_rebasing/" class="md-nav__link">
+        Merging vs Rebasing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fork-the-repository" class="md-nav__link">
+    Fork the Repository
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clone-your-forked-repository" class="md-nav__link">
+    Clone your Forked Repository
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sync-forked-repository-with-upstream" class="md-nav__link">
+    Sync Forked Repository with Upstream
+  </a>
+  
+    <nav class="md-nav" aria-label="Sync Forked Repository with Upstream">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-a-remote-for-a-forked-repository" class="md-nav__link">
+    Configuring a Remote for a Forked Repository
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncing-the-forked-repository-with-upstream" class="md-nav__link">
+    Syncing the Forked Repository with Upstream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncing-the-forked-repository-with-upstreams-other-branches" class="md-nav__link">
+    Syncing the Forked Repository with Upstream's Other Branches
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-pull-request" class="md-nav__link">
+    Creating Pull Request
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-rebase-my-workflow-vs-git-merge" class="md-nav__link">
+    Git Rebase (My Workflow) vs Git Merge
+  </a>
+  
+    <nav class="md-nav" aria-label="Git Rebase (My Workflow) vs Git Merge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-rebase" class="md-nav__link">
+    Git Rebase
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/gao-hongnan/gaohn-mlops-docs/edit/master/docs/mlops_docs/git/collaborating/contributing_to_open_source_projects.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+  <h1>Contributing to Open Source Projects, A Generic Sample Workflow</h1>
+
+<p>This workflow described in this section is a generic workflow, for other detailed models of workflows,
+refer to <a href="https://www.atlassian.com/git/tutorials/comparing-workflows">Atlassian's Git Workflows</a> for more details.</p>
+<h3 id="fork-the-repository">Fork the Repository</h3>
+<p>We will first start off by going to the repository you are interested in and click on the <strong>Fork</strong> 
+button on the top right.</p>
+<p>I will use a <a href="https://github.com/ghnreigns/git-sample-workflow">public repository</a> named <strong>git-sample-workflow</strong> from my other account.</p>
+<p>This will replicate his entire repository into my own GitHub account. 
+Remember to uncheck the box <strong>Copy the <code>main</code> branch only</strong>
+if you decide to work on the forked repository's branches as well.</p>
+<h3 id="clone-your-forked-repository">Clone your Forked Repository</h3>
+<p>I have a fork of the <strong>test</strong> repository on my GitHub server, but to start developing, I will have to 
+clone this forked repository locally on my computer.</p>
+<p>Depending on HTTPS or SSH key, one might copy different URLs for the forked repository.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Git Clone Forked Repo</label><label for="__tabbed_1_2">Outputs</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">git clone forked repo</span><pre><span></span><code>~/gaohn<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/reigHns92/git-sample-workflow.git
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code>Cloning into &#39;git-sample-workflow&#39;...
+remote: Enumerating objects: 6, done.
+remote: Counting objects: 100% (6/6), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 6 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (6/6), done.
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>For a more detailed step-by-step guide, <a href="https://
+docs.github.com/en/get-started/quickstart/fork-a-repo">GitHub Docs's Quickstart: Fork a repo</a>
+provides a templated method to do fork and clone.</p>
+<h3 id="sync-forked-repository-with-upstream">Sync Forked Repository with Upstream</h3>
+<p>Before we go on, we define <a href="https://stackoverflow.com/questions/9257533/what-is-the-difference
+-between-origin-and-upstream-on-github#:~:text=upstream%20generally%20refers%20to%20the,
+the%20original%20repo%20of%20GitHub">two key terms</a> in the context of <a href="https://help.github.com/articles/fork-a-repo/">GitHub Forks</a>:</p>
+<ul>
+<li><code>origin</code>: this refers to one's own repository (i.e. the forked and cloned repository on your personal account);</li>
+<li><code>upstream</code>: generally refers to the original repository that you have forked.</li>
+</ul>
+<p>In general, it is also useful to understand <a href="https://stackoverflow.com/que
+stions/2739376/definition-of-downstream-and-upstream/2749166#2749166">upstreams and downstreams</a>.</p>
+<p>Back to where we left off, you can continue to develop on the forked repository but the
+<strong>original repository</strong> you forked from (the <code>upstream</code>) will not automatically sync with
+your <code>origin</code>. In other words, if the <code>upstream</code> repository made 10 new commits, your <code>origin</code>
+will have no information on those 10 new commits.</p>
+<p>To be able to sync changes, we will have to first configure a remote for the fork, and fetch from upstream to sync.</p>
+<h4 id="configuring-a-remote-for-a-forked-repository">Configuring a Remote for a Forked Repository</h4>
+<p>The steps are referenced from <a href="https://docs.github.com/en/pull-requests/collaborating-with
+-pull-requests/working-with-forks/configuring-a-remote-for-a-fork">GitHub Docs</a>. They have included steps for 
+different OS. We will reproduce the steps on macOS.</p>
+<ol>
+<li>
+<p>Open the terminal;</p>
+</li>
+<li>
+<p>A handy command to check what remote repository your forked repo has. Note that one can have many
+   remotes! </p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">list out all remotes</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn<span class="w">                     </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>git-sample-workflow
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>-v
+
+&gt;<span class="w"> </span>origin<span class="w">    </span>https://github.com/reigHns92/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+&gt;<span class="w"> </span>origin<span class="w">    </span>https://github.com/reigHns92/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>Specify a new remote <em>upstream</em> repository that will be synced with the fork.
+   To do so, go to the original <a href="https://github.com/ghnreigns/git-sample-workflow.git">repository</a> (the one you forked from) and copy the
+   URLs (HTTPS or SSH) to add to remote (upstream).</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">configuring remote for forked repo</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/ghnreigns/git-sample-workflow.git
+
+&gt;<span class="w"> </span>origin<span class="w">    </span>https://github.com/reigHns92/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+&gt;<span class="w"> </span>origin<span class="w">    </span>https://github.com/reigHns92/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>You can verify the new upstream repository is added by checking <code>git remove -v</code> again.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">list out all remotes</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>remote<span class="w"> </span>-v
+
+&gt;<span class="w"> </span>origin<span class="w">    </span>https://github.com/reigHns92/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+&gt;<span class="w"> </span>origin<span class="w">    </span>https://github.com/reigHns92/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+&gt;<span class="w"> </span>upstream<span class="w">  </span>https://github.com/ghnreigns/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>fetch<span class="o">)</span>
+&gt;<span class="w"> </span>upstream<span class="w">  </span>https://github.com/ghnreigns/git-sample-workflow.git<span class="w"> </span><span class="o">(</span>push<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+</li>
+</ol>
+<h4 id="syncing-the-forked-repository-with-upstream">Syncing the Forked Repository with Upstream</h4>
+<p>Now I will use my other account to make a new commit <a href="https://github.com/ghnreigns/git-sample-workflow/commit/32f5bbd7ba31bb4d50e40c27fca946ebc32dbefe">32f5bbd
+</a> 
+on the repository's main branch (i.e the upstream) and now
+my forked repository will be 1 commit behind.</p>
+<figure>
+<p><img alt="Image title" src="../../../../assets/git/main_1.PNG" width="600" />
+  </p>
+<figcaption>Origin is 1 commit behind Upstream</figcaption>
+</figure>
+<p>To keep my repository up to date, we will refer to <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-
+requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line">GitHub Docs</a>
+section on syncing a fork branch from the command line.</p>
+<ol>
+<li>
+<p>In the same terminal, we fetch all branches and commites from the upstream repository.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">fetching from upstream repo</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+
+&gt;<span class="w"> </span>remote:<span class="w"> </span>Enumerating<span class="w"> </span>objects:<span class="w"> </span><span class="m">5</span>,<span class="w"> </span><span class="k">done</span>.
+&gt;<span class="w"> </span>remote:<span class="w"> </span>Counting<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">5</span>/5<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+&gt;<span class="w"> </span>remote:<span class="w"> </span>Compressing<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">2</span>/2<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+&gt;<span class="w"> </span>remote:<span class="w"> </span>Total<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">1</span><span class="o">)</span>,<span class="w"> </span>reused<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">0</span><span class="o">)</span>,<span class="w"> </span>pack-reused<span class="w"> </span><span class="m">0</span>
+&gt;<span class="w"> </span>Unpacking<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">3</span>/3<span class="o">)</span>,<span class="w"> </span><span class="m">711</span><span class="w"> </span>bytes<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">71</span>.00<span class="w"> </span>KiB/s,<span class="w"> </span><span class="k">done</span>.
+&gt;<span class="w"> </span>From<span class="w"> </span>https://github.com/ghnreigns/git-sample-workflow
+&gt;<span class="w"> </span>*<span class="w"> </span><span class="o">[</span>new<span class="w"> </span>branch<span class="o">]</span><span class="w">      </span>main<span class="w">       </span>-&gt;<span class="w"> </span>upstream/main
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>Switch to your fork's main branch (or the branch you want the changes to be synced and merged).</p>
+<div class="highlight"><pre><span></span><code>~/gaohn/git-sample-workflow $ git checkout main
+</code></pre></div>
+</li>
+<li>
+<p>Before you merge, you can use <code>git log</code> from the <a href="./#synchronize-origin-with-git-fetch">previous section</a>
+    to check what was committed on the upstream repository.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">checking what was committed on upstream</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--oneline<span class="w"> </span>upstream/main..main
+</code></pre></div></td></tr></table></div>
+<p>and it indeed returns the message <code>32f5bbd (upstream/main) git: update README.md for new commit</code>
+which was indeed the commit <a href="https://github.com/ghnreigns/git-sample-workflow/commit/32f5bbd7ba31bb4d50e40c27fca946ebc32dbefe">32f5bbd
+</a> done on my other account.</p>
+</li>
+<li>
+<p>Merge the changes from the upstream default branch - in this case, <code>upstream/main</code> - into your local default branch. 
+   This brings your fork's default branch into sync with the upstream repository, without losing your local changes.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">merge with upstream</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+
+&gt;<span class="w"> </span>Updating<span class="w"> </span>2d47f2d..32f5bbd
+&gt;<span class="w"> </span>Fast-forward
+&gt;<span class="w"> </span>README.md<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>++
+&gt;<span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">2</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>Now it is time to push the commits to the origin repository, a quick <code>git status</code> will tell you
+    that you are 1 commit ahead of the origin repository.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">checking status</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>status
+
+&gt;<span class="w"> </span>On<span class="w"> </span>branch<span class="w"> </span>main
+&gt;<span class="w"> </span>Your<span class="w"> </span>branch<span class="w"> </span>is<span class="w"> </span>ahead<span class="w"> </span>of<span class="w"> </span><span class="s1">&#39;origin/main&#39;</span><span class="w"> </span>by<span class="w"> </span><span class="m">1</span><span class="w"> </span>commit.
+&gt;<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git push&quot;</span><span class="w"> </span>to<span class="w"> </span>publish<span class="w"> </span>your<span class="w"> </span><span class="nb">local</span><span class="w"> </span>commits<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>and we will use <code>git push</code> to push the commits to the origin repository.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pushing to origin</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+
+&gt;<span class="w"> </span>Total<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">0</span><span class="o">)</span>,<span class="w"> </span>reused<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">0</span><span class="o">)</span>,<span class="w"> </span>pack-reused<span class="w"> </span><span class="m">0</span>
+&gt;<span class="w"> </span>To<span class="w"> </span>https://github.com/reigHns92/git-sample-workflow.git
+&gt;<span class="w">    </span>2d47f2d..32f5bbd<span class="w">  </span>main<span class="w"> </span>-&gt;<span class="w"> </span>main
+&gt;<span class="w"> </span>Branch<span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span>track<span class="w"> </span>remote<span class="w"> </span>branch<span class="w"> </span><span class="s1">&#39;main&#39;</span><span class="w"> </span>from<span class="w"> </span><span class="s1">&#39;origin&#39;</span>.
+</code></pre></div></td></tr></table></div>
+<p>After this step, the origin (forked) repo of mine will be in sync with the upstream as can be verified by
+the message "This branch is up to date with ghnreigns/git-sample-workflow:main." on your main branch github.</p>
+</li>
+</ol>
+<h4 id="syncing-the-forked-repository-with-upstreams-other-branches">Syncing the Forked Repository with Upstream's Other Branches</h4>
+<p>Let's say our upstream repository created a new branch <code>dev</code> and we want to sync our forked repository with it
+(note that our forked repository <code>origin</code> does not have this branch yet).</p>
+<p>We can first <code>git fetch upstream</code> to fetch all branches and commits from the upstream repository.
+We see that <code>git</code> tells us the following:</p>
+<div class="highlight"><pre><span></span><code>From<span class="w"> </span>https://github.com/ghnreigns/git-sample-workflow
+<span class="w"> </span>*<span class="w"> </span><span class="o">[</span>new<span class="w"> </span>branch<span class="o">]</span><span class="w">      </span>dev<span class="w">        </span>-&gt;<span class="w"> </span>upstream/dev
+</code></pre></div>
+<p>which means that the upstream repository has a new branch <code>dev</code> and it "downloads (fetch)" it to our local repository.</p>
+<p>Notice that the <code>dev</code> branch does not automatically appear in your local git (i.e. calling <code>git checkout dev</code> does not work).
+The <code>dev</code> branch exists in both <code>origin</code> and <code>upstream</code> as can be seen by <code>git branch -a</code>.</p>
+<p>There are <a href="https://www.freecodecamp.org/news/git-checkout-remote-branch-tutorial/">two ways</a> to "fetch" the <code>dev</code> repo to your local:</p>
+<ul>
+<li><code>git checkout -b dev upstream/dev</code> will create a branch named <code>dev</code> that pulls the information from the <code>upstream/dev</code> branch;</li>
+<li>Alternatively, you can <code>git checkout -b dev origin/main</code> which essentially fetches the <code>dev</code> branch on your forked repo and then
+we can do <code>git merge upstream/dev</code> to be in sync.</li>
+</ul>
+<h3 id="creating-pull-request">Creating Pull Request</h3>
+<p>Now on my local <code>dev</code> branch, I made some changes and committed to 
+<a href="https://github.com/reigHns92/git-sample-workflow/commit/7e8a124590d1c33f88bc124a0df294a423886713">7e8a124</a>
+using <code>git push -u origin dev</code>.</p>
+<p>I now want to create a pull request for the upstream repository owner to see my changes, and to merge into his repo if necessary.</p>
+<p>We first go to our <code>origin</code> (forked) <a href="https://github.com/reigHns92/git-sample-workflow/tree/dev">repository</a> and see that there is a new popup on "compare and pull request".
+We click it and the following interface will appear, that is for you to write a message to the upstream author.</p>
+<figure>
+<p><img alt="Image title" src="../../../../assets/git/pull_request_1.PNG" width="600" />
+  </p>
+<figcaption>Pull Request 1</figcaption>
+</figure>
+<p>Once you created pull request, you can wait for the upstream author to decide and reply.
+Since I am the owner of the other account, I went in and see the following:</p>
+<figure>
+<p><img alt="Image title" src="../../../../assets/git/pull_request_2.PNG" width="600" />
+  </p>
+<figcaption>Pull Request 2</figcaption>
+</figure>
+<p>and proceeded to approve the merge request.</p>
+<p>We used the default option to merge the pull request, which is to merge into the <code>dev</code> branch
+of the upstream repository and create a new commit (SHA 1fa405d). We can have different types of merge
+which we can read up more <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-merges">here</a>.</p>
+<p>Consequently, you will need to repeat the following steps to sync your forked repository's <code>dev</code> branch with the upstream repository's <code>dev</code> branch:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">syncing forked repo with upstream</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>dev
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>fetch<span class="w"> </span>upstream
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>merge<span class="w"> </span>upstream/dev
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>dev
+</code></pre></div></td></tr></table></div>
+<p>even though the point is slightly moot since this step is exactly the same as the previous commit.</p>
+<h3 id="git-rebase-my-workflow-vs-git-merge">Git Rebase (My Workflow) vs Git Merge</h3>
+<p>We discuss how we can use <code>git rebase</code> to clean up commits before merging into the upstream repository.
+This workflow can be extremely versatile, so I will only be discussing the workflow that I use.</p>
+<h4 id="git-rebase">Git Rebase</h4>
+<p>Let's say you are on your <code>origin/dev</code> branch and decides to create a new feature.
+You can create a new branch <code>feat-hello-world</code> and do your work on it.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">creating new branch</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span><span class="o">(</span>git:<span class="w"> </span>dev<span class="o">)</span><span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat-hello-world
+</code></pre></div></td></tr></table></div>
+<p>You then create a new script <code>hello_world.py</code> which prints "Hello World!" and commit it to your local repository.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">creating new script</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>touch<span class="w"> </span>hello_world.py<span class="w">   </span><span class="c1"># add print(&quot;Hello World!&quot;)</span>
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>hello_world.py
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new feature hello_world that prints &#39;Hello World!&#39;&quot;</span>
+
+<span class="o">[</span>feat-hello-world<span class="w"> </span>0ee86be<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>new<span class="w"> </span>feature<span class="w"> </span>hello_world<span class="w"> </span>that<span class="w"> </span>prints<span class="w"> </span><span class="s2">&quot;Hello World!&quot;</span>
+<span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>hello_world.py
+</code></pre></div></td></tr></table></div>
+<p>You then continue developing and added a new function <code>print_message()</code> to the <code>hello_world</code> script
+such that the function can take in a string and print it to console.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">adding new function</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add new function to print any incoming string as message&quot;</span>
+
+<span class="o">[</span>feat-hello-world<span class="w"> </span>ef731ee<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>new<span class="w"> </span><span class="k">function</span><span class="w"> </span>to<span class="w"> </span>print<span class="w"> </span>any<span class="w"> </span>incoming<span class="w"> </span>string<span class="w"> </span>as<span class="w"> </span>message.
+<span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">7</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>,<span class="w"> </span><span class="m">1</span><span class="w"> </span>deletion<span class="o">(</span>-<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>After you are done with the feature, I packaged the script <code>hello_world</code> into a folder named <code>src</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">packaging script</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>mkdir<span class="w"> </span>src
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>mv<span class="w"> </span>hello_world.py<span class="w"> </span>src/
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>src/
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;build: package hello_world.py into src folder for modularity.&quot;</span>
+
+<span class="o">[</span>feat-hello-world<span class="w"> </span>99180da<span class="o">]</span><span class="w"> </span>build:<span class="w"> </span>package<span class="w"> </span>hello_world.py<span class="w"> </span>into<span class="w"> </span>src<span class="w"> </span>folder<span class="w"> </span><span class="k">for</span><span class="w"> </span>modularity.
+<span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">0</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>,<span class="w"> </span><span class="m">0</span><span class="w"> </span>deletions<span class="o">(</span>-<span class="o">)</span>
+<span class="w"> </span>rename<span class="w"> </span>hello_world.py<span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>src/hello_world.py<span class="w"> </span><span class="o">(</span><span class="m">100</span>%<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Now I am ready to merge my <code>feat-hello-world</code> branch into the <code>dev</code> branch of the upstream repository.
+Before that, I want to clean up my commits because commits <code>0ee86be</code> and <code>ef731ee</code> are quite similar
+in what they do, both adding new features to the <code>hello_world</code> script and can be merged into one commit.</p>
+<p>We can do this by using <code>git rebase -i</code> to interactively rebase my commits. But since we want to rebase
+on top of the <code>dev</code> branch of the upstream repository, we need to first fetch the upstream repository (if you have not done so already).
+Subsequently, we can rebase our <code>feat-hello-world</code> branch onto the <code>dev</code> branch of the upstream repository as follows.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">rebase onto upstream/dev</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>fetch<span class="w"> </span>upstream<span class="w"> </span><span class="c1"># this ensures that we are up to date with the upstream repository</span>
+~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>upstream/dev
+</code></pre></div></td></tr></table></div>
+<p>This will open up a text editor with the following content, shown in the gif below.</p>
+<figure>
+<p><img alt="Image title" src="../../../../assets/git/git_rebase.gif" width="600" />
+  </p>
+<figcaption>Git Rebase</figcaption>
+</figure>
+<p>Note that we replaced <code>pick</code> of <code>ef731ee</code> with <code>fixup</code> to squash the commit into the previous commit.
+We did not use <code>squash</code> because we do not want to keep the commit message of <code>ef731ee</code>. Therefore,
+<code>fixup</code> will keep the commit message of <code>0ee86be</code> and discard the commit message of <code>ef731ee</code> while
+squashing the commit.</p>
+<p>Now we will see a message <code>Successfully rebased and updated refs/heads/feat-hello-world.</code> and
+we can force push our branch to the remote repository.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">force push to remote</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>~/gaohn/git-sample-workflow<span class="w"> </span>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>-f<span class="w"> </span>origin<span class="w"> </span>feat-hello-world
+</code></pre></div></td></tr></table></div>
+<p>We are now ready to create a <a href="./#creating-pull-request">pull request</a>
+to merge our <code>feat-hello-world</code> branch into the <code>dev</code> branch.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We have successfully cleaned up our commits by using <code>git rebase -i</code> to squash two commits into one.</p>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../branching_and_merging/git_branch/" class="md-footer__link md-footer__link--prev" aria-label="Previous: git branch" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              git branch
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../advanced_tips/merging_vs_rebasing/" class="md-footer__link md-footer__link--next" aria-label="Next: Merging vs Rebasing" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Merging vs Rebasing
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021-2022 Gao Hongnan
+    </div>
+  
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://sg.linkedin.com/in/reighnss" target="_blank" rel="noopener" title="sg.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/gao-hongnan" target="_blank" rel="noopener" title="gaohn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["content.code.annotate"], "search": "../../../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.ed9748b7.min.js"></script>
+      
+        <script src="../../../../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
